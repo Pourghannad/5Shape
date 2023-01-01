@@ -1,37 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5Shape | TEST</title>
-    <style>
-        html, body {
-            padding: 0;
-            margin: 0;
-        }
-        #test {
-            width: 200px;
-            height: 200px;
-            background-color: #eee;
-            font-size: 18px;
-            position: fixed;
-            bottom: 0;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-    </style>
-</head>
-<body>
-    <div id="test"></div>
-    <script>
-        document.getElementById('test').addEventListener('touchmove', (event) => {
-            const touchX = event.touches[0].clientX - event.target.offsetLeft;
-            const touchY = event.touches[0].clientY - event.target.offsetTop;
-            event.target.innerHTML = `touchX: ${touchX.toFixed(1)} <br /> touchY: ${touchY.toFixed(1)}`
-        });
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
