@@ -13,7 +13,8 @@
         #test {
             width: 200px;
             height: 200px;
-            background-color: #000;
+            background-color: #eee;
+            font-size: 18px;
             position: fixed;
             bottom: 0;
             top: 0;
@@ -27,7 +28,9 @@
     <div id="test"></div>
     <script>
         document.getElementById('test').addEventListener('touchmove', (event) => {
-            console.log('asd', event.touches[0].radiusX, event.touches[0].radiusY);
+            const touchX = event.touches[0].clientX - event.target.offsetLeft;
+            const touchY = event.touches[0].clientY - event.target.offsetTop;
+            event.target.innerHTML = `touchX: ${touchX.toFixed(1)} <br /> touchY: ${touchY.toFixed(1)}`
         });
     </script>
 </body>
