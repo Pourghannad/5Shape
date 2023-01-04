@@ -1,10 +1,10 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import Play from './components/Play.vue'
 </script>
 
 <template>
   <main>
-    <HelloWorld msg="5Shape" />
+    <Play msg="5Shape" />
   </main>
 </template>
 
