@@ -1,8 +1,8 @@
 <script setup>
   const touchmoveTest = (event) => {
-    const touchX = event.touches[0].clientX - event.target.offsetLeft;
-    const touchY = event.touches[0].clientY - event.target.offsetTop;
-    event.target.style.transform = `translate3D(10px, 10px, 0px)`;
+    const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft;
+    const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop;
+    event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
   }
 </script>
 
@@ -24,8 +24,8 @@ section {
   border: 1px solid #c8102e;
   .item {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 35px;
+    height: 35px;
     background-color: #eee;
     &:nth-of-type(1) {
       top: 40px;
