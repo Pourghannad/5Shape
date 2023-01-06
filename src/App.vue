@@ -4,7 +4,7 @@ import Play from './components/Play.vue'
 
 <template>
   <main>
-    <Play msg="5Shape" />
+    <Play />
   </main>
 </template>
 

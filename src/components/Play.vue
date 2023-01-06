@@ -1,6 +1,14 @@
+<script setup>
+  const touchmoveTest = (event) => {
+    const touchX = event.touches[0].clientX - event.target.offsetLeft;
+    const touchY = event.touches[0].clientY - event.target.offsetTop;
+    event.target.style.transform = `translate3D(10px, 10px, 0px)`;
+  }
+</script>
+
 <template>
   <section>
-    <div class="item"></div>
+    <div class="item" @touchmove="touchmoveTest"></div>
     <div class="item"></div>
     <div class="item"></div>
     <div class="item"></div>
