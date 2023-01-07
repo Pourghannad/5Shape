@@ -1,18 +1,28 @@
-<script setup>
-  const touchmoveTest = (event) => {
-    const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft;
-    const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop;
-    event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
+<script>
+  export default {
+  data() {
+    return {
+      number: 0
+    }
+  },
+  methods: {
+    touchmoveTest(event) {
+      const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft - this.number;
+      const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop - this.number;
+      event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
+    }
   }
+}
 </script>
 
 <template>
   <section>
+    <input type="number" v-model="number" />
     <div class="item" @touchmove="touchmoveTest"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
+    <div class="item" @touchmove="touchmoveTest"></div>
+    <div class="item" @touchmove="touchmoveTest"></div>
+    <div class="item" @touchmove="touchmoveTest"></div>
+    <div class="item" @touchmove="touchmoveTest"></div>
   </section>
 </template>
 
@@ -22,6 +32,10 @@ section {
   height: 300px;
   position: relative;
   border: 1px solid #c8102e;
+  input {
+    position: absolute;
+    top: -40px;
+  }
   .item {
     position: absolute;
     width: 35px;
