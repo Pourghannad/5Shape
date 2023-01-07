@@ -1,15 +1,12 @@
 <script>
   export default {
-  data() {
-    return {
-      number: 0
-    }
-  },
   methods: {
     touchmoveTest(event) {
-      const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft - this.number;
-      const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop - this.number;
-      event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
+      const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft - event.target.offsetWidth/2;
+      const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop - event.target.offsetHeight/2;
+      if (event.touches[0].screenY - event.target.offsetParent.offsetTop*2 < 300) {
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
+      }
     }
   }
 }
@@ -17,7 +14,6 @@
 
 <template>
   <section>
-    <input type="number" v-model="number" />
     <div class="item" @touchmove="touchmoveTest"></div>
     <div class="item" @touchmove="touchmoveTest"></div>
     <div class="item" @touchmove="touchmoveTest"></div>
@@ -31,7 +27,7 @@ section {
   width: 300px;
   height: 300px;
   position: relative;
-  border: 1px solid #c8102e;
+  box-shadow: 0px 0px 0px 1px #c8102e;
   input {
     position: absolute;
     top: -40px;
@@ -41,6 +37,10 @@ section {
     width: 35px;
     height: 35px;
     background-color: #eee;
+    will-change: transform;
+    transition-property: transform;
+    transition-duration: 75ms;
+    transition-timing-function: linear;
     &:nth-of-type(1) {
       top: 40px;
       right: 40px;
@@ -58,7 +58,6 @@ section {
       right: 150px;
     }
     &:nth-of-type(5) {
-      top: 25x;
       left: 15px;
     }
   }
