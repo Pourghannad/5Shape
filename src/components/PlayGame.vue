@@ -1,15 +1,26 @@
 <script>
-  export default {
+export default {
   methods: {
     touchmoveTest(event) {
-      const touchX = event.touches[0].clientX - event.target.offsetLeft - event.target.offsetParent.offsetLeft - event.target.offsetWidth/2;
-      const touchY = event.touches[0].clientY - event.target.offsetTop - event.target.offsetParent.offsetTop - event.target.offsetHeight/2;
-      if (event.touches[0].screenY - event.target.offsetParent.offsetTop*2 < 300) {
+      const touchX =
+        event.touches[0].clientX -
+        event.target.offsetLeft -
+        event.target.offsetParent.offsetLeft -
+        event.target.offsetWidth / 2;
+      const touchY =
+        event.touches[0].clientY -
+        event.target.offsetTop -
+        event.target.offsetParent.offsetTop -
+        event.target.offsetHeight / 2;
+      if (
+        event.touches[0].screenY - event.target.offsetParent.offsetTop * 2 <
+        event.target.offsetParent.offsetHeight
+      ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>
