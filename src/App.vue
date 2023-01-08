@@ -1,10 +1,10 @@
 <script setup>
-import Play from "./components/Play.vue";
+import PlayGame from "./components/PlayGame.vue";
 </script>
 
 <template>
   <main>
-    <Play />
+    <PlayGame />
   </main>
 </template>
 

@@ -12,9 +12,15 @@ export default {
         event.target.offsetTop -
         event.target.offsetParent.offsetTop -
         event.target.offsetHeight / 2;
+      const offsetBoxY =
+        event.touches[0].screenY - event.target.offsetParent.offsetTop * 2;
+      const offsetBoxX =
+        event.touches[0].screenX - event.target.offsetParent.offsetLeft * 2;
       if (
-        event.touches[0].screenY - event.target.offsetParent.offsetTop * 2 <
-        event.target.offsetParent.offsetHeight
+        offsetBoxY < event.target.offsetParent.offsetHeight &&
+        offsetBoxY > 0 &&
+        offsetBoxX < event.target.offsetParent.offsetWidth &&
+        offsetBoxX > 0
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
       }
