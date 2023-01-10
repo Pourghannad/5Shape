@@ -12,15 +12,17 @@ export default {
         event.target.offsetTop -
         event.target.offsetParent.offsetTop -
         event.target.offsetHeight / 2;
-      const offsetBoxY =
-        event.touches[0].screenY - event.target.offsetParent.offsetTop * 2;
-      const offsetBoxX =
-        event.touches[0].screenX - event.target.offsetParent.offsetLeft * 2;
+      console.log(
+        "PageX",
+        event.touches[0].pageX -
+          event.target.offsetParent.offsetLeft -
+          event.target.offsetWidth / 2
+      );
       if (
-        offsetBoxY < event.target.offsetParent.offsetHeight &&
-        offsetBoxY > 0 &&
-        offsetBoxX < event.target.offsetParent.offsetWidth &&
-        offsetBoxX > 0
+        event.touches[0].pageX -
+          event.target.offsetParent.offsetLeft -
+          event.target.offsetWidth / 2 >
+        0
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
       }
@@ -45,19 +47,15 @@ section {
   height: 300px;
   position: relative;
   box-shadow: 0px 0px 0px 1px #c8102e;
-  input {
-    position: absolute;
-    top: -40px;
-  }
   .item {
     position: absolute;
     width: 35px;
     height: 35px;
     background-color: #eee;
     will-change: transform;
-    transition-property: transform;
+    /* transition-property: transform;
     transition-duration: 75ms;
-    transition-timing-function: linear;
+    transition-timing-function: linear; */
     &:nth-of-type(1) {
       top: 40px;
       right: 40px;
