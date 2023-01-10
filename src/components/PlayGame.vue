@@ -53,9 +53,9 @@ section {
     height: 35px;
     background-color: #eee;
     will-change: transform;
-    /* transition-property: transform;
-    transition-duration: 75ms;
-    transition-timing-function: linear; */
+    transition-property: transform;
+    transition-duration: 50ms;
+    transition-timing-function: linear;
     &:nth-of-type(1) {
       top: 40px;
       right: 40px;
