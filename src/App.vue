@@ -2,9 +2,30 @@
 import PlayGame from "./components/PlayGame.vue";
 </script>
 
+<script scoped>
+export default {
+  methods: {
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+};
+</script>
+
 <template>
   <main>
-    <PlayGame />
+    <div v-if="isMobile()">
+      <PlayGame />
+    </div>
+    <div v-else>Please use a touch mobile phone!.</div>
   </main>
 </template>
 
