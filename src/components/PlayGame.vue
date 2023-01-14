@@ -16,10 +16,17 @@ export default {
         event.touches[0].pageX -
         event.target.offsetParent.offsetLeft -
         event.target.offsetWidth / 2;
+      const offsetY =
+        event.touches[0].pageY -
+        event.target.offsetParent.offsetTop -
+        event.target.offsetHeight / 2;
       if (
         offsetX > 0 &&
         offsetX <
-          event.target.offsetParent.offsetWidth - event.target.offsetWidth
+          event.target.offsetParent.offsetWidth - event.target.offsetWidth &&
+        offsetY > 0 &&
+        offsetY <
+          event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
       }
@@ -51,7 +58,6 @@ section {
     background-color: #eee;
     will-change: transform;
     transition-property: transform;
-    transition-duration: 50ms;
     transition-timing-function: linear;
     &:nth-of-type(1) {
       top: 40px;
