@@ -12,17 +12,14 @@ export default {
         event.target.offsetTop -
         event.target.offsetParent.offsetTop -
         event.target.offsetHeight / 2;
-      console.log(
-        "PageX",
+      const offsetX =
         event.touches[0].pageX -
-          event.target.offsetParent.offsetLeft -
-          event.target.offsetWidth / 2
-      );
+        event.target.offsetParent.offsetLeft -
+        event.target.offsetWidth / 2;
       if (
-        event.touches[0].pageX -
-          event.target.offsetParent.offsetLeft -
-          event.target.offsetWidth / 2 >
-        0
+        offsetX > 0 &&
+        offsetX <
+          event.target.offsetParent.offsetWidth - event.target.offsetWidth
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
       }

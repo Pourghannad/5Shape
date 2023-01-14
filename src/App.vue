@@ -25,7 +25,7 @@ export default {
     <div v-if="isMobile()">
       <PlayGame />
     </div>
-    <div v-else>Please use a touch mobile phone!.</div>
+    <div v-else>Please use a touch mobile phone!</div>
   </main>
 </template>
 
