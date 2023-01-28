@@ -59,6 +59,9 @@ section {
     will-change: transform;
     transition-property: transform;
     transition-timing-function: linear;
+    transition-duration: 50ms;
+    touch-action: auto;
+    -webkit-overflow-scrolling: touch;
     &:nth-of-type(1) {
       top: 40px;
       right: 40px;
