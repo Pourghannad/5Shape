@@ -28,20 +28,23 @@ export default {
         offsetY <
           event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
-        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px)`;
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(1.2, 1.2, 1)`;
       }
     },
+    touchEnd(event) {
+      event.target.style.transform = `${event.target.style.transform.split(' scale3d')[0]} scale3D(1, 1, 1)`;
+    }
   },
 };
 </script>
 
 <template>
   <section>
-    <div class="item" @touchmove="touchmoveTest"></div>
-    <div class="item" @touchmove="touchmoveTest"></div>
-    <div class="item" @touchmove="touchmoveTest"></div>
-    <div class="item" @touchmove="touchmoveTest"></div>
-    <div class="item" @touchmove="touchmoveTest"></div>
+    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
   </section>
 </template>
 
