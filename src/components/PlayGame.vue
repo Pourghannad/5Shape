@@ -2,6 +2,7 @@
 export default {
   methods: {
     touchmoveTest(event) {
+      event.preventDefault();
       const touchX =
         event.touches[0].clientX -
         event.target.offsetLeft -
@@ -30,9 +31,12 @@ export default {
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(1.2, 1.2, 1)`;
       }
+      return false;
     },
     touchEnd(event) {
+      event.preventDefault();
       event.target.style.transform = `${event.target.style.transform.split(' scale3d')[0]} scale3D(1, 1, 1)`;
+      return false;
     }
   },
 };
