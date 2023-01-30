@@ -44,49 +44,64 @@ export default {
 
 <template>
   <section>
-    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-    <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    <div class="correct-item">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="game-box">
+      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 section {
-  width: 300px;
-  height: 300px;
-  position: relative;
-  box-shadow: 0px 0px 0px 1px #c8102e;
-  .item {
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    background-color: #eee;
-    will-change: transform;
-    transition-property: transform;
-    transition-timing-function: linear;
-    transition-duration: 50ms;
-    touch-action: auto;
-    -webkit-overflow-scrolling: touch;
-    &:nth-of-type(1) {
-      top: 40px;
-      right: 40px;
-    }
-    &:nth-of-type(2) {
-      top: 90px;
-      right: 10px;
-    }
-    &:nth-of-type(3) {
-      top: 200px;
-      left: 10px;
-    }
-    &:nth-of-type(4) {
-      top: 250px;
-      right: 150px;
-    }
-    &:nth-of-type(5) {
-      left: 15px;
+  .correct-item {
+    width: 100px;
+    height: 100px;
+  }
+  .game-box {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      box-shadow: 0px 0px 0px 1px #c8102e;
+    .item {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background-color: #eee;
+      will-change: transform;
+      transition-property: transform;
+      transition-timing-function: linear;
+      transition-duration: 50ms;
+      touch-action: auto;
+      -webkit-overflow-scrolling: touch;
+      &:nth-of-type(1) {
+        top: 40px;
+        right: 40px;
+      }
+      &:nth-of-type(2) {
+        top: 90px;
+        right: 10px;
+      }
+      &:nth-of-type(3) {
+        top: 200px;
+        left: 10px;
+      }
+      &:nth-of-type(4) {
+        top: 250px;
+        right: 150px;
+      }
+      &:nth-of-type(5) {
+        left: 15px;
+      }
     }
   }
 }
