@@ -37,7 +37,7 @@ main {
   box-shadow: 0 0 35px -30px #fff;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
   height: 100vh;

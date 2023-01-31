@@ -40,6 +40,9 @@ export default {
       } scale3D(1, 1, 1)`;
       return false;
     },
+    onSubmit(event) {
+      console.log('event', event);
+    }
   },
 };
 </script>
@@ -60,6 +63,7 @@ export default {
       <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
       <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
     </div>
+    <button class="submit" @click="onSubmit">Submit</button>
   </section>
 </template>
 
@@ -68,12 +72,12 @@ section {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-top: 1em;
   .correct-item {
     width: 100px;
     height: 100px;
     box-shadow: 0px 0px 0px 1px #19953c;
-    margin-top: -2em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     span {
       width: 15px;
       height: 15px;
@@ -133,6 +137,18 @@ section {
         left: 15px;
       }
     }
+  }
+  .submit {
+    margin-top: 5em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: rgba(69,27,122,.6);
+    color: #fff;
+    padding: 1em 2em;
+    border: 3px solid #371265;
+    width: 76%;
+    cursor: pointer;
   }
 }
 </style>
