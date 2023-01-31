@@ -29,15 +29,17 @@ export default {
         offsetY <
           event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
-        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(1.2, 1.2, 1)`;
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(1.35, 1.35, 1)`;
       }
       return false;
     },
     touchEnd(event) {
       event.preventDefault();
-      event.target.style.transform = `${event.target.style.transform.split(' scale3d')[0]} scale3D(1, 1, 1)`;
+      event.target.style.transform = `${
+        event.target.style.transform.split(" scale3d")[0]
+      } scale3D(1, 1, 1)`;
       return false;
-    }
+    },
   },
 };
 </script>
@@ -63,15 +65,43 @@ export default {
 
 <style lang="scss" scoped>
 section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   .correct-item {
     width: 100px;
     height: 100px;
+    box-shadow: 0px 0px 0px 1px #19953c;
+    margin-top: -2em;
+    margin-bottom: 1em;
+    span {
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      transform: translate3D(0px, 0px, 0px);
+      background-color: #fff;
+      &:nth-of-type(1) {
+        transform: translate3D(0px, 0px, 0px);
+      }
+      &:nth-of-type(2) {
+        transform: translate3D(0px, 20px, 0px);
+      }
+      &:nth-of-type(3) {
+        transform: translate3D(0px, 40px, 0px);
+      }
+      &:nth-of-type(4) {
+        transform: translate3D(0px, 60px, 0px);
+      }
+      &:nth-of-type(5) {
+        transform: translate3D(0px, 80px, 0px);
+      }
+    }
   }
   .game-box {
-      width: 300px;
-      height: 300px;
-      position: relative;
-      box-shadow: 0px 0px 0px 1px #c8102e;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    box-shadow: 0px 0px 0px 1px #c8102e;
     .item {
       position: absolute;
       width: 35px;
