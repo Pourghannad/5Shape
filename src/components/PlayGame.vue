@@ -1,4 +1,6 @@
 <script>
+const scale = 1;
+const incentiveDistance = 5;
 export default {
   methods: {
     touchmoveTest(event) {
@@ -29,7 +31,7 @@ export default {
         offsetY <
           event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
-        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(1.35, 1.35, 1)`;
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
       }
       return false;
     },
@@ -40,8 +42,10 @@ export default {
       } scale3D(1, 1, 1)`;
       return false;
     },
-    onSubmit(event) {
-      console.log('event', event);
+    onSubmit() {
+      const boxOneX = this.$refs.boxOne.getBoundingClientRect().x - (this.$refs.boxOne.getBoundingClientRect().width / scale) + incentiveDistance;
+      // const boxOneY = this.$refs.boxOne.getBoundingClientRect().y - (this.$refs.boxOne.getBoundingClientRect().height / scale) + incentiveDistance;
+      console.log('event', boxOneX, this.$refs.boxOne.getBoundingClientRect().x - this.$refs.boxOne.offsetParent.offsetLeft - this.$refs.boxOne.offsetWidth / 2);
     }
   },
 };
@@ -57,7 +61,7 @@ export default {
       <span></span>
     </div>
     <div class="game-box">
-      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div ref="boxOne" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
       <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
       <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
       <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
@@ -108,6 +112,8 @@ section {
     box-shadow: 0px 0px 0px 1px #c8102e;
     .item {
       position: absolute;
+      top: 0px;
+      right: 0px;
       width: 35px;
       height: 35px;
       background-color: #eee;
@@ -117,24 +123,21 @@ section {
       transition-duration: 50ms;
       touch-action: auto;
       -webkit-overflow-scrolling: touch;
+      transform: translate3D(0px, 0px, 0px);
       &:nth-of-type(1) {
-        top: 40px;
-        right: 40px;
+        transform: translate3D(-40px, 40px, 0px);
       }
       &:nth-of-type(2) {
-        top: 90px;
-        right: 10px;
+        transform: translate3D(-10px, 90px, 0px);
       }
       &:nth-of-type(3) {
-        top: 200px;
-        left: 10px;
+        transform: translate3D(-160px, 100px, 0px);
       }
       &:nth-of-type(4) {
-        top: 250px;
-        right: 150px;
+        transform: translate3D(-200px, 250px, 0px);
       }
       &:nth-of-type(5) {
-        left: 15px;
+        transform: translate3D(-20px, 0px, 0px);
       }
     }
   }

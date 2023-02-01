@@ -25,11 +25,11 @@ export default {
     <div v-if="isMobile()">
       <PlayGame />
     </div>
-    <div v-else>Please use a touch mobile phone!</div>
+    <div v-else class="use-mobile">Please use a touch mobile phone!</div>
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 main {
   max-width: 500px;
   margin: auto;
@@ -41,5 +41,11 @@ main {
   justify-content: center;
   overflow: hidden;
   height: 100vh;
+  .use-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+  }
 }
 </style>
