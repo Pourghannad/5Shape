@@ -1,5 +1,5 @@
 <script>
-const scale = 1;
+const scale = 2;
 const incentiveDistance = 5;
 export default {
   methods: {
@@ -31,7 +31,7 @@ export default {
         offsetY <
           event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
-        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)rotate3d(1, 1, 1, 45deg`;
       }
       return false;
     },
@@ -44,7 +44,6 @@ export default {
     },
     onSubmit() {
       const boxOneX = this.$refs.boxOne.getBoundingClientRect().x - (this.$refs.boxOne.getBoundingClientRect().width / scale) + incentiveDistance;
-      // const boxOneY = this.$refs.boxOne.getBoundingClientRect().y - (this.$refs.boxOne.getBoundingClientRect().height / scale) + incentiveDistance;
       console.log('event', boxOneX, this.$refs.boxOne.getBoundingClientRect().x - this.$refs.boxOne.offsetParent.offsetLeft - this.$refs.boxOne.offsetWidth / 2);
     }
   },
@@ -62,10 +61,10 @@ export default {
     </div>
     <div class="game-box">
       <div ref="boxOne" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div ref="boxTWO" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div ref="boxThree" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div ref="boxFour" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div ref="boxFive" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
     </div>
     <button class="submit" @click="onSubmit">Submit</button>
   </section>
@@ -78,13 +77,13 @@ section {
   flex-direction: column;
   margin-top: 1em;
   .correct-item {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     box-shadow: 0px 0px 0px 1px #19953c;
     margin-bottom: 2em;
     span {
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       position: absolute;
       transform: translate3D(0px, 0px, 0px);
       background-color: #fff;
@@ -92,16 +91,16 @@ section {
         transform: translate3D(0px, 0px, 0px);
       }
       &:nth-of-type(2) {
-        transform: translate3D(0px, 20px, 0px);
+        transform: translate3D(0px, 19px, 0px);
       }
       &:nth-of-type(3) {
-        transform: translate3D(0px, 40px, 0px);
+        transform: translate3D(0px, 38px, 0px);
       }
       &:nth-of-type(4) {
-        transform: translate3D(0px, 60px, 0px);
+        transform: translate3D(0px, 57px, 0px);
       }
       &:nth-of-type(5) {
-        transform: translate3D(0px, 80px, 0px);
+        transform: translate3D(0px, 76px, 0px);
       }
     }
   }
@@ -114,8 +113,8 @@ section {
       position: absolute;
       top: 0px;
       right: 0px;
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       background-color: #eee;
       will-change: transform;
       transition-property: transform;
@@ -125,6 +124,7 @@ section {
       -webkit-overflow-scrolling: touch;
       transform: translate3D(0px, 0px, 0px);
       &:nth-of-type(1) {
+        background-color: #00f;
         transform: translate3D(-40px, 40px, 0px);
       }
       &:nth-of-type(2) {
