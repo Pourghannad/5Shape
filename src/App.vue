@@ -33,7 +33,6 @@ export default {
 main {
   max-width: 500px;
   margin: auto;
-  height: 100%;
   box-shadow: 0 0 35px -30px #fff;
   position: relative;
   display: flex;

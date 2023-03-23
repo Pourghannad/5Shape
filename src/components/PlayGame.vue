@@ -2,14 +2,10 @@
 const scale = 2;
 const incentiveDistance = 5;
 export default {
-  mounted: () => {
-    setTimeout(() => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(err => {
-        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-      });
+    data() {
+    return {
+      fullScreen: false
     }
-    }, 1000);
   },
   methods: {
     touchmoveTest(event) {
@@ -62,12 +58,23 @@ export default {
         incentiveDistance;
       alert(`X: ${boxOneX.toFixed(2)} Y: ${boxOneY}`);
     },
+    onFullScreen() {
+          if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    }
+      this.fullScreen = true;
+    }
   },
 };
 </script>
 
 <template>
-  <section>
+  <div v-if="!fullScreen">
+    <button @click="onFullScreen">Full Screen</button>
+  </div>
+  <section v-else>
     <div class="correct-item">
       <span></span>
       <span></span>
