@@ -2,6 +2,15 @@
 const scale = 2;
 const incentiveDistance = 5;
 export default {
+  mounted: () => {
+    setTimeout(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    }
+    }, 1000);
+  },
   methods: {
     touchmoveTest(event) {
       event.preventDefault();
@@ -43,9 +52,16 @@ export default {
       return false;
     },
     onSubmit() {
-      const boxOneX = this.$refs.boxOne.getBoundingClientRect().x - (this.$refs.boxOne.getBoundingClientRect().width / scale) + incentiveDistance;
-      console.log('event', boxOneX, this.$refs.boxOne.getBoundingClientRect().x - this.$refs.boxOne.offsetParent.offsetLeft - this.$refs.boxOne.offsetWidth / 2);
-    }
+      const boxOneX =
+        this.$refs.boxOne.getBoundingClientRect().x -
+        this.$refs.boxOne.getBoundingClientRect().width / scale +
+        incentiveDistance;
+      const boxOneY =
+        this.$refs.boxOne.getBoundingClientRect().y -
+        this.$refs.boxOne.getBoundingClientRect().height / scale +
+        incentiveDistance;
+      alert(`X: ${boxOneX.toFixed(2)} Y: ${boxOneY}`);
+    },
   },
 };
 </script>
@@ -60,11 +76,36 @@ export default {
       <span></span>
     </div>
     <div class="game-box">
-      <div ref="boxOne" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div ref="boxTWO" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div ref="boxThree" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div ref="boxFour" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
-      <div ref="boxFive" class="item" @touchmove="touchmoveTest" @touchend="touchEnd"></div>
+      <div
+        ref="boxOne"
+        class="item"
+        @touchmove="touchmoveTest"
+        @touchend="touchEnd"
+      ></div>
+      <div
+        ref="boxTWO"
+        class="item"
+        @touchmove="touchmoveTest"
+        @touchend="touchEnd"
+      ></div>
+      <div
+        ref="boxThree"
+        class="item"
+        @touchmove="touchmoveTest"
+        @touchend="touchEnd"
+      ></div>
+      <div
+        ref="boxFour"
+        class="item"
+        @touchmove="touchmoveTest"
+        @touchend="touchEnd"
+      ></div>
+      <div
+        ref="boxFive"
+        class="item"
+        @touchmove="touchmoveTest"
+        @touchend="touchEnd"
+      ></div>
     </div>
     <button class="submit" @click="onSubmit">Submit</button>
   </section>
@@ -146,7 +187,7 @@ section {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: rgba(69,27,122,.6);
+    background-color: rgba(69, 27, 122, 0.6);
     color: #fff;
     padding: 1em 2em;
     border: 3px solid #371265;
