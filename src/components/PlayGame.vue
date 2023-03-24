@@ -50,13 +50,16 @@ export default {
     onSubmit() {
       const boxOneX =
         this.$refs.boxOne.getBoundingClientRect().x -
-        this.$refs.boxOne.getBoundingClientRect().width / scale +
+        this.$refs.boxOne.getBoundingClientRect().width -
         incentiveDistance;
       const boxOneY =
         this.$refs.boxOne.getBoundingClientRect().y -
-        this.$refs.boxOne.getBoundingClientRect().height / scale +
+        this.$refs.boxOne.getBoundingClientRect().height -
         incentiveDistance;
-      alert(`X: ${boxOneX.toFixed(2)} Y: ${boxOneY}`);
+      console.log("Box", boxOneX, boxOneY);
+      if (boxOneX * 1 < 10) {
+        alert("ok");
+      }
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
@@ -154,18 +157,18 @@ export default {
     left: 0;
     top: 0;
     opacity: 0;
-    transform: scale3D(1,1,1);
+    transform: scale3D(1, 1, 1);
     animation-name: fullScreenAnimation;
     animation-duration: 400ms;
     animation-iteration-count: 2;
   }
   @keyframes fullScreenAnimation {
     0% {
-      transform: scale3D(1,1,1);
+      transform: scale3D(1, 1, 1);
       opacity: 1;
     }
     100% {
-      transform: scale3D(1.5,1.5,1);
+      transform: scale3D(1.5, 1.5, 1);
       opacity: 0;
     }
   }
@@ -185,30 +188,57 @@ section {
   flex-direction: column;
   margin-top: 1em;
   .correct-item {
-    width: 90px;
-    height: 90px;
+    width: 115px;
+    height: 115px;
     box-shadow: 0px 0px 0px 1px #19953c;
     margin-bottom: 2em;
     span {
-      width: 12px;
-      height: 12px;
+      width: 18px;
+      height: 18px;
       position: absolute;
       transform: translate3D(0px, 0px, 0px);
       background-color: #fff;
+      &:before {
+        position: absolute;
+        color: #727272;
+        font-size: 20px;
+        font-weight: bold;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 1px;
+      }
       &:nth-of-type(1) {
         transform: translate3D(0px, 0px, 0px);
+        &:before {
+          content: "A";
+        }
       }
       &:nth-of-type(2) {
-        transform: translate3D(0px, 19px, 0px);
+        transform: translate3D(0px, 25px, 0px);
+        &:before {
+          content: "B";
+        }
       }
       &:nth-of-type(3) {
-        transform: translate3D(0px, 38px, 0px);
+        transform: translate3D(0px, 49px, 0px);
+        &:before {
+          content: "C";
+        }
       }
       &:nth-of-type(4) {
-        transform: translate3D(0px, 57px, 0px);
+        transform: translate3D(0px, 73px, 0px);
+        &:before {
+          content: "D";
+        }
       }
       &:nth-of-type(5) {
-        transform: translate3D(0px, 76px, 0px);
+        transform: translate3D(0px, 97px, 0px);
+        &:before {
+          content: "E";
+        }
       }
     }
   }
@@ -231,21 +261,47 @@ section {
       touch-action: auto;
       -webkit-overflow-scrolling: touch;
       transform: translate3D(0px, 0px, 0px);
+      &:before {
+        position: absolute;
+        color: #727272;
+        font-size: 20px;
+        font-weight: bold;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 1px;
+      }      
       &:nth-of-type(1) {
-        background-color: #00f;
         transform: translate3D(-40px, 40px, 0px);
+        &:before {
+          content: "A";
+        }
       }
       &:nth-of-type(2) {
         transform: translate3D(-10px, 90px, 0px);
+        &:before {
+          content: "‌B";
+        }
       }
       &:nth-of-type(3) {
         transform: translate3D(-160px, 100px, 0px);
+        &:before {
+          content: "‌C";
+        }
       }
       &:nth-of-type(4) {
         transform: translate3D(-200px, 250px, 0px);
+        &:before {
+          content: "‌D";
+        }
       }
       &:nth-of-type(5) {
         transform: translate3D(-20px, 0px, 0px);
+        &:before {
+          content: "‌E";
+        }
       }
     }
   }
