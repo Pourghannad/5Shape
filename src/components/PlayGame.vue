@@ -1,10 +1,10 @@
 <script>
-const scale = 2;
-const incentiveDistance = 5;
+const scale = 1.5;
+const incentiveDistance = 0;
 export default {
   data() {
     return {
-      fullScreen: false,
+      fullScreen: true,
     };
   },
   methods: {
@@ -36,7 +36,7 @@ export default {
         offsetY <
           event.target.offsetParent.offsetHeight - event.target.offsetHeight
       ) {
-        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)rotate3d(1, 1, 1, 45deg`;
+        event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
       }
       return false;
     },
@@ -50,16 +50,14 @@ export default {
     onSubmit() {
       const boxOneX =
         this.$refs.boxOne.getBoundingClientRect().x -
-        this.$refs.boxOne.getBoundingClientRect().width -
-        incentiveDistance;
+        this.$refs.boxOne.getBoundingClientRect().width - incentiveDistance;
       const boxOneY =
         this.$refs.boxOne.getBoundingClientRect().y -
-        this.$refs.boxOne.getBoundingClientRect().height -
-        incentiveDistance;
+        this.$refs.boxOne.getBoundingClientRect().height - incentiveDistance;
       console.log("Box", boxOneX, boxOneY);
-      if (boxOneX * 1 < 10) {
-        alert("ok");
-      }
+      // if (boxOneX * 1 < 10) {
+      //   alert("ok");
+      // }
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
@@ -136,186 +134,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.full-screen {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  background-color: #8f8fc1;
-  border: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0px);
-  box-shadow: 5px 5px 0px #5555a7;
-  transition-property: box-shadow;
-  transition-duration: 100ms;
-  &:before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 0 2px #fff;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    transform: scale3D(1, 1, 1);
-    animation-name: fullScreenAnimation;
-    animation-duration: 400ms;
-    animation-iteration-count: 2;
-  }
-  @keyframes fullScreenAnimation {
-    0% {
-      transform: scale3D(1, 1, 1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale3D(1.5, 1.5, 1);
-      opacity: 0;
-    }
-  }
-  &:active {
-    box-shadow: 2px 2px 0px #5555a7;
-  }
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: #00f;
-    margin-top: 5px;
-  }
-}
-section {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 1em;
-  .correct-item {
-    width: 115px;
-    height: 115px;
-    box-shadow: 0px 0px 0px 1px #19953c;
-    margin-bottom: 2em;
-    span {
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      transform: translate3D(0px, 0px, 0px);
-      background-color: #fff;
-      &:before {
-        position: absolute;
-        color: #727272;
-        font-size: 20px;
-        font-weight: bold;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 1px;
-      }
-      &:nth-of-type(1) {
-        transform: translate3D(0px, 0px, 0px);
-        &:before {
-          content: "A";
-        }
-      }
-      &:nth-of-type(2) {
-        transform: translate3D(0px, 25px, 0px);
-        &:before {
-          content: "B";
-        }
-      }
-      &:nth-of-type(3) {
-        transform: translate3D(0px, 49px, 0px);
-        &:before {
-          content: "C";
-        }
-      }
-      &:nth-of-type(4) {
-        transform: translate3D(0px, 73px, 0px);
-        &:before {
-          content: "D";
-        }
-      }
-      &:nth-of-type(5) {
-        transform: translate3D(0px, 97px, 0px);
-        &:before {
-          content: "E";
-        }
-      }
-    }
-  }
-  .game-box {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    box-shadow: 0px 0px 0px 1px #c8102e;
-    .item {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      width: 30px;
-      height: 30px;
-      background-color: #eee;
-      will-change: transform;
-      transition-property: transform;
-      transition-timing-function: linear;
-      transition-duration: 50ms;
-      touch-action: auto;
-      -webkit-overflow-scrolling: touch;
-      transform: translate3D(0px, 0px, 0px);
-      &:before {
-        position: absolute;
-        color: #727272;
-        font-size: 20px;
-        font-weight: bold;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 1px;
-      }      
-      &:nth-of-type(1) {
-        transform: translate3D(-40px, 40px, 0px);
-        &:before {
-          content: "A";
-        }
-      }
-      &:nth-of-type(2) {
-        transform: translate3D(-10px, 90px, 0px);
-        &:before {
-          content: "‌B";
-        }
-      }
-      &:nth-of-type(3) {
-        transform: translate3D(-160px, 100px, 0px);
-        &:before {
-          content: "‌C";
-        }
-      }
-      &:nth-of-type(4) {
-        transform: translate3D(-200px, 250px, 0px);
-        &:before {
-          content: "‌D";
-        }
-      }
-      &:nth-of-type(5) {
-        transform: translate3D(-20px, 0px, 0px);
-        &:before {
-          content: "‌E";
-        }
-      }
-    }
-  }
-  .submit {
-    margin-top: 5em;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: rgba(69, 27, 122, 0.6);
-    color: #fff;
-    padding: 1em 2em;
-    border: 3px solid #371265;
-    width: 76%;
-    cursor: pointer;
-  }
-}
+@import './style.scss'
 </style>
