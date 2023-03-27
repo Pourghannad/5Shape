@@ -29,12 +29,12 @@ export default {
         event.target.offsetParent.offsetTop -
         event.target.offsetHeight / 2;
       if (
-        offsetX > 0 &&
+        offsetX > -20 &&
         offsetX <
-          event.target.offsetParent.offsetWidth - event.target.offsetWidth &&
-        offsetY > 0 &&
+          event.target.offsetParent.offsetWidth - event.target.offsetWidth + 20 &&
+        offsetY > -20 &&
         offsetY <
-          event.target.offsetParent.offsetHeight - event.target.offsetHeight
+          event.target.offsetParent.offsetHeight - event.target.offsetHeight + 20
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
       }
@@ -48,16 +48,19 @@ export default {
       return false;
     },
     onSubmit() {
-      const boxOneX =
-        this.$refs.boxOne.getBoundingClientRect().x -
-        this.$refs.boxOne.getBoundingClientRect().width - incentiveDistance;
-      const boxOneY =
-        this.$refs.boxOne.getBoundingClientRect().y -
-        this.$refs.boxOne.getBoundingClientRect().height - incentiveDistance;
-      console.log("Box", boxOneX, boxOneY);
-      // if (boxOneX * 1 < 10) {
-      //   alert("ok");
-      // }
+      const boxOneX = Math.floor(this.$refs.boxOne.getBoundingClientRect().x -
+        this.$refs.boxOne.getBoundingClientRect().width - incentiveDistance);
+      const boxOneY = Math.floor(this.$refs.boxOne.getBoundingClientRect().y -
+        this.$refs.boxOne.getBoundingClientRect().height - incentiveDistance);
+      let boxOneBeingCorrect = 0;
+      // const levelOneCorrect = {x: -3, y: 126};
+        if (boxOneX >= -2 && boxOneX <= 2 && boxOneY >= 123 && boxOneY <= 127) {
+          boxOneBeingCorrect = 100;
+        }
+        if (boxOneX >= -6 && boxOneX < -2 && boxOneY > 120 && boxOneY < 128) {
+          boxOneBeingCorrect = 90;
+        }
+      console.log("Box", boxOneX, boxOneY, boxOneBeingCorrect);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
