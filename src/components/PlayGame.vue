@@ -1,6 +1,7 @@
 <script>
 const scale = 1.5;
 const incentiveDistance = 0;
+const rewardSpace = 3;
 export default {
   data() {
     return {
@@ -31,10 +32,14 @@ export default {
       if (
         offsetX > -20 &&
         offsetX <
-          event.target.offsetParent.offsetWidth - event.target.offsetWidth + 20 &&
+          event.target.offsetParent.offsetWidth -
+            event.target.offsetWidth +
+            20 &&
         offsetY > -20 &&
         offsetY <
-          event.target.offsetParent.offsetHeight - event.target.offsetHeight + 20
+          event.target.offsetParent.offsetHeight -
+            event.target.offsetHeight +
+            20
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
       }
@@ -48,18 +53,29 @@ export default {
       return false;
     },
     onSubmit() {
-      const boxOneX = Math.floor(this.$refs.boxOne.getBoundingClientRect().x -
-        this.$refs.boxOne.getBoundingClientRect().width - incentiveDistance);
-      const boxOneY = Math.floor(this.$refs.boxOne.getBoundingClientRect().y -
-        this.$refs.boxOne.getBoundingClientRect().height - incentiveDistance);
+      const boxOneX = Math.floor(
+        this.$refs.boxOne.getBoundingClientRect().x -
+          this.$refs.boxOne.getBoundingClientRect().width -
+          incentiveDistance
+      );
+      const boxOneY = Math.floor(
+        this.$refs.boxOne.getBoundingClientRect().y -
+          this.$refs.boxOne.getBoundingClientRect().height -
+          incentiveDistance
+      );
       let boxOneBeingCorrect = 0;
-      // const levelOneCorrect = {x: -3, y: 126};
-        if (boxOneX >= -2 && boxOneX <= 2 && boxOneY >= 123 && boxOneY <= 127) {
-          boxOneBeingCorrect = 100;
-        }
-        if (boxOneX >= -6 && boxOneX < -2 && boxOneY > 120 && boxOneY < 128) {
-          boxOneBeingCorrect = 90;
-        }
+      const levelOneCorrect = { x: -3, y: 126 };
+      if (
+        boxOneX >= levelOneCorrect.x - rewardSpace &&
+        boxOneX <= levelOneCorrect.x + rewardSpace &&
+        boxOneY >= levelOneCorrect.y - rewardSpace &&
+        boxOneY <= levelOneCorrect.y + rewardSpace
+      ) {
+        boxOneBeingCorrect = 100;
+      }
+      if (boxOneX >= -6 && boxOneX < -2 && boxOneY > 120 && boxOneY < 128) {
+        boxOneBeingCorrect = 90;
+      }
       console.log("Box", boxOneX, boxOneY, boxOneBeingCorrect);
     },
     onFullScreen() {
@@ -137,5 +153,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import './style.scss'
+@import "./style.scss";
 </style>
