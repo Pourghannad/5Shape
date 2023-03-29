@@ -65,18 +65,11 @@ export default {
       );
       let boxOneBeingCorrect = 0;
       const levelOneCorrect = { x: -3, y: 126 };
-      if (
-        boxOneX >= levelOneCorrect.x - rewardSpace &&
-        boxOneX <= levelOneCorrect.x + rewardSpace &&
-        boxOneY >= levelOneCorrect.y - rewardSpace &&
-        boxOneY <= levelOneCorrect.y + rewardSpace
-      ) {
+      const boxOneCalcute = Math.abs((boxOneX - levelOneCorrect.x) + (boxOneY - levelOneCorrect.y));
+      if (boxOneCalcute <= rewardSpace) {
         boxOneBeingCorrect = 100;
       }
-      if (boxOneX >= -6 && boxOneX < -2 && boxOneY > 120 && boxOneY < 128) {
-        boxOneBeingCorrect = 90;
-      }
-      console.log("Box", boxOneX, boxOneY, boxOneBeingCorrect);
+      console.log("Box", boxOneCalcute, boxOneBeingCorrect);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
