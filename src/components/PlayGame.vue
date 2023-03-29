@@ -2,6 +2,7 @@
 const scale = 1.5;
 const incentiveDistance = 0;
 const rewardSpace = 3;
+const touchMoveOffset = 20;
 export default {
   data() {
     return {
@@ -30,16 +31,16 @@ export default {
         event.target.offsetParent.offsetTop -
         event.target.offsetHeight / 2;
       if (
-        offsetX > -20 &&
+        offsetX > -touchMoveOffset &&
         offsetX <
           event.target.offsetParent.offsetWidth -
             event.target.offsetWidth +
-            20 &&
-        offsetY > -20 &&
+            touchMoveOffset &&
+        offsetY > -touchMoveOffset &&
         offsetY <
           event.target.offsetParent.offsetHeight -
             event.target.offsetHeight +
-            20
+            touchMoveOffset
       ) {
         event.target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${scale}, ${scale}, 1)`;
       }
