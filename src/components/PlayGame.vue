@@ -1,7 +1,7 @@
 <script>
-const scale = 1.5;
+const scale = 1;
 const incentiveDistance = 0;
-const rewardSpace = 3;
+const rewardSpace = 2;
 const touchMoveOffset = 20;
 export default {
   data() {
@@ -10,7 +10,7 @@ export default {
     };
   },
   methods: {
-    touchmoveTest(event) {
+    touchmoveItems(event) {
       event.preventDefault();
       const touchX =
         event.touches[0].clientX -
@@ -54,23 +54,41 @@ export default {
       return false;
     },
     onSubmit() {
+      const boxOneClient = this.$refs.boxOne.getBoundingClientRect();
+      const boxTwoClient = this.$refs.boxTwo.getBoundingClientRect();
       const boxOneX = Math.floor(
-        this.$refs.boxOne.getBoundingClientRect().x -
-          this.$refs.boxOne.getBoundingClientRect().width -
+        boxOneClient.x -
+          boxOneClient.width -
           incentiveDistance
       );
       const boxOneY = Math.floor(
-        this.$refs.boxOne.getBoundingClientRect().y -
-          this.$refs.boxOne.getBoundingClientRect().height -
+        boxOneClient.y -
+          boxOneClient.height -
+          incentiveDistance
+      );
+      const boxTwoX = Math.floor(
+        boxTwoClient.x -
+          boxTwoClient.width -
+          incentiveDistance
+      );
+      const boxTwoY = Math.floor(
+        boxTwoClient.y -
+          boxTwoClient.height -
           incentiveDistance
       );
       let boxOneBeingCorrect = 0;
-      const levelOneCorrect = { x: -3, y: 126 };
-      const boxOneCalcute = Math.abs((boxOneX - levelOneCorrect.x) + (boxOneY - levelOneCorrect.y));
+      const levelOneCorrect = { 1: { x: -3, y: 126 }, 2: { y: 200} };
+      const boxOneCalcute = Math.abs(
+        boxOneX - levelOneCorrect[1].x + (boxOneY - levelOneCorrect[1].y)
+      );
+      const boxTwoCalcute = Math.abs(
+        boxTwoX - levelOneCorrect[1].x + (boxTwoY - levelOneCorrect[2].y)
+      );
       if (boxOneCalcute <= rewardSpace) {
         boxOneBeingCorrect = 100;
+        alert(100);
       }
-      console.log("Box", boxOneCalcute, boxOneBeingCorrect);
+      console.log("Box", boxTwoX, boxTwoY, boxTwoCalcute, boxOneBeingCorrect);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
@@ -114,31 +132,31 @@ export default {
       <div
         ref="boxOne"
         class="item"
-        @touchmove="touchmoveTest"
+        @touchmove="touchmoveItems"
         @touchend="touchEnd"
       ></div>
       <div
-        ref="boxTWO"
+        ref="boxTwo"
         class="item"
-        @touchmove="touchmoveTest"
+        @touchmove="touchmoveItems"
         @touchend="touchEnd"
       ></div>
       <div
         ref="boxThree"
         class="item"
-        @touchmove="touchmoveTest"
+        @touchmove="touchmoveItems"
         @touchend="touchEnd"
       ></div>
       <div
         ref="boxFour"
         class="item"
-        @touchmove="touchmoveTest"
+        @touchmove="touchmoveItems"
         @touchend="touchEnd"
       ></div>
       <div
         ref="boxFive"
         class="item"
-        @touchmove="touchmoveTest"
+        @touchmove="touchmoveItems"
         @touchend="touchEnd"
       ></div>
     </div>
