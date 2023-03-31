@@ -77,18 +77,18 @@ export default {
           incentiveDistance
       );
       let boxOneBeingCorrect = 0;
-      const levelOneCorrect = { 1: { x: -3, y: 126 }, 2: { y: 200} };
+      const levelOneCorrect = { 1: { x: -3, y: 126 }, 2: { x: -3,y: 200} };
       const boxOneCalcute = Math.abs(
         boxOneX - levelOneCorrect[1].x + (boxOneY - levelOneCorrect[1].y)
       );
       const boxTwoCalcute = Math.abs(
-        boxTwoX - levelOneCorrect[1].x + (boxTwoY - levelOneCorrect[2].y)
+        boxTwoX - levelOneCorrect[2].x + (boxTwoY - levelOneCorrect[2].y)
       );
       if (boxOneCalcute <= rewardSpace) {
         boxOneBeingCorrect = 100;
         alert(100);
       }
-      console.log("Box", boxTwoX, boxTwoY, boxTwoCalcute, boxOneBeingCorrect);
+      console.log("Box", boxTwoX, boxTwoY, boxOneCalcute, boxTwoCalcute, boxOneBeingCorrect);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
