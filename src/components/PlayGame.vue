@@ -6,7 +6,7 @@ const touchMoveOffset = 20;
 export default {
   data() {
     return {
-      fullScreen: true,
+      fullScreen: false,
     };
   },
   methods: {
@@ -54,41 +54,33 @@ export default {
       return false;
     },
     onSubmit() {
-      const boxOneClient = this.$refs.boxOne.getBoundingClientRect();
-      const boxTwoClient = this.$refs.boxTwo.getBoundingClientRect();
-      const boxOneX = Math.floor(
-        boxOneClient.x -
-          boxOneClient.width -
-          incentiveDistance
-      );
-      const boxOneY = Math.floor(
-        boxOneClient.y -
-          boxOneClient.height -
-          incentiveDistance
-      );
-      const boxTwoX = Math.floor(
-        boxTwoClient.x -
-          boxTwoClient.width -
-          incentiveDistance
-      );
-      const boxTwoY = Math.floor(
-        boxTwoClient.y -
-          boxTwoClient.height -
-          incentiveDistance
-      );
+      const calcuteBoxPosition = (clientRect, index) => {
+        const boxX = Math.floor(
+          clientRect.x - clientRect.width - incentiveDistance
+        );
+        const boxY = Math.floor(
+          clientRect.y - clientRect.height - incentiveDistance
+        );
+        console.log("log", boxY, boxX);
+        return Math.abs(
+          boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
+        );
+      };
       let boxOneBeingCorrect = 0;
-      const levelOneCorrect = { 1: { x: -3, y: 126 }, 2: { x: -3,y: 200} };
-      const boxOneCalcute = Math.abs(
-        boxOneX - levelOneCorrect[1].x + (boxOneY - levelOneCorrect[1].y)
+      const levelOneCorrect = { 1: { x: -11, y: 124 }, 2: { x: -11, y: 200 } };
+      const boxOneCalcute = calcuteBoxPosition(
+        this.$refs.boxOne.getBoundingClientRect(),
+        1
       );
-      const boxTwoCalcute = Math.abs(
-        boxTwoX - levelOneCorrect[2].x + (boxTwoY - levelOneCorrect[2].y)
+      const boxTwoCalcute = calcuteBoxPosition(
+        this.$refs.boxTwo.getBoundingClientRect(),
+        2
       );
       if (boxOneCalcute <= rewardSpace) {
         boxOneBeingCorrect = 100;
         alert(100);
       }
-      console.log("Box", boxTwoX, boxTwoY, boxOneCalcute, boxTwoCalcute, boxOneBeingCorrect);
+      console.log("Boxs", boxOneCalcute, boxOneBeingCorrect, boxTwoCalcute);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
