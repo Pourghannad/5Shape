@@ -6,7 +6,7 @@ const touchMoveOffset = 20;
 export default {
   data() {
     return {
-      fullScreen: false,
+      fullScreen: true,
     };
   },
   methods: {
@@ -26,6 +26,10 @@ export default {
         event.touches[0].pageX -
         event.target.offsetParent.offsetLeft -
         event.target.offsetWidth / 2;
+      // const offsetXX =
+      //   (event.touches[0].screenX/2 ) -
+      //   event.target.offsetParent.offsetLeft -
+      //   event.target.offsetWidth / 2;        
       const offsetY =
         event.touches[0].pageY -
         event.target.offsetParent.offsetTop -
@@ -61,7 +65,7 @@ export default {
         const boxY = Math.floor(
           clientRect.y - clientRect.height - incentiveDistance
         );
-        console.log("log", boxY, boxX);
+        console.log("log", index, clientRect, boxX);
         return Math.abs(
           boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
         );
@@ -80,7 +84,7 @@ export default {
         boxOneBeingCorrect = 100;
         alert(100);
       }
-      console.log("Boxs", boxOneCalcute, boxOneBeingCorrect, boxTwoCalcute);
+      console.log("Boxs", boxOneCalcute, boxOneBeingCorrect, boxTwoCalcute, this.$refs.gameBox.getBoundingClientRect());
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
@@ -120,7 +124,7 @@ export default {
       <span></span>
       <span></span>
     </div>
-    <div class="game-box">
+    <div ref="gameBox" class="game-box">
       <div
         ref="boxOne"
         class="item"
