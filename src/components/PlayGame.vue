@@ -6,7 +6,8 @@ const touchMoveOffset = 20;
 export default {
   data() {
     return {
-      fullScreen: true,
+      fullScreen: false,
+      countDown: true,
     };
   },
   methods: {
@@ -29,7 +30,7 @@ export default {
       // const offsetXX =
       //   (event.touches[0].screenX/2 ) -
       //   event.target.offsetParent.offsetLeft -
-      //   event.target.offsetWidth / 2;        
+      //   event.target.offsetWidth / 2;
       const offsetY =
         event.touches[0].pageY -
         event.target.offsetParent.offsetTop -
@@ -84,7 +85,13 @@ export default {
         boxOneBeingCorrect = 100;
         alert(100);
       }
-      console.log("Boxs", boxOneCalcute, boxOneBeingCorrect, boxTwoCalcute, this.$refs.gameBox.getBoundingClientRect());
+      console.log(
+        "Boxs",
+        boxOneCalcute,
+        boxOneBeingCorrect,
+        boxTwoCalcute,
+        this.$refs.gameBox.getBoundingClientRect()
+      );
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
@@ -95,6 +102,9 @@ export default {
         });
       }
       this.fullScreen = true;
+      setTimeout(() => {
+        this.countDown = false;
+      }, 1500);
     },
   },
 };
@@ -117,6 +127,13 @@ export default {
     </button>
   </div>
   <section v-else>
+    <div v-if="countDown" class="start-count-down">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+    </div>
     <div class="correct-item">
       <span></span>
       <span></span>
