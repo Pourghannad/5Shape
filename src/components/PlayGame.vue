@@ -66,13 +66,12 @@ export default {
         const boxY = Math.floor(
           clientRect.y - clientRect.height - incentiveDistance
         );
-        console.log("log", index, clientRect, boxX);
         return Math.abs(
           boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
         );
       };
       let boxOneBeingCorrect = 0;
-      const levelOneCorrect = { 1: { x: -11, y: 124 }, 2: { x: -11, y: 200 } };
+      const levelOneCorrect = { 1: { x: -11, y: 124 }, 2: { x: -11, y: 200 }, 3: { x: -11, y: 276 }, 4: { x: -11, y: 356 }, 5: { x: -11, y: 432 } };
       const boxOneCalcute = calcuteBoxPosition(
         this.$refs.boxOne.getBoundingClientRect(),
         1
@@ -81,16 +80,28 @@ export default {
         this.$refs.boxTwo.getBoundingClientRect(),
         2
       );
+      const boxThreeCalcute = calcuteBoxPosition(
+        this.$refs.boxThree.getBoundingClientRect(),
+        3
+      );
+      const boxFourCalcute = calcuteBoxPosition(
+        this.$refs.boxFour.getBoundingClientRect(),
+        4
+      );
+      const boxFiveCalcute = calcuteBoxPosition(
+        this.$refs.boxFive.getBoundingClientRect(),
+        4
+      );
       if (boxOneCalcute <= rewardSpace) {
         boxOneBeingCorrect = 100;
         alert(100);
       }
+      alert(boxOneCalcute + boxTwoCalcute + boxThreeCalcute + boxFourCalcute + boxFiveCalcute)
       console.log(
         "Boxs",
         boxOneCalcute,
         boxOneBeingCorrect,
         boxTwoCalcute,
-        this.$refs.gameBox.getBoundingClientRect()
       );
     },
     onFullScreen() {
