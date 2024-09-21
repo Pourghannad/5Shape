@@ -1,7 +1,6 @@
 <script>
 const scale = 1;
 const incentiveDistance = 0;
-const rewardSpace = 2;
 const touchMoveOffset = 20;
 export default {
   data() {
@@ -27,10 +26,6 @@ export default {
         event.touches[0].pageX -
         event.target.offsetParent.offsetLeft -
         event.target.offsetWidth / 2;
-      // const offsetXX =
-      //   (event.touches[0].screenX/2 ) -
-      //   event.target.offsetParent.offsetLeft -
-      //   event.target.offsetWidth / 2;
       const offsetY =
         event.touches[0].pageY -
         event.target.offsetParent.offsetTop -
@@ -60,18 +55,37 @@ export default {
     },
     onSubmit() {
       const calcuteBoxPosition = (clientRect, index) => {
+        const windowSpaceToGameX =
+          (window.innerWidth -
+            this.$refs.gameBox.getBoundingClientRect().width) /
+          2;
+        const windowSpaceToGameY =
+          (window.innerHeight -
+            this.$refs.gameBox.getBoundingClientRect().height) /
+          2;
         const boxX = Math.floor(
-          clientRect.x - clientRect.width - incentiveDistance
+          clientRect.x - windowSpaceToGameX - incentiveDistance
         );
         const boxY = Math.floor(
-          clientRect.y - clientRect.height - incentiveDistance
+          clientRect.y - windowSpaceToGameY - incentiveDistance
+        );
+        console.log(
+          "index",
+          index,
+          boxX,
+          boxY,
         );
         return Math.abs(
           boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
         );
       };
-      let boxOneBeingCorrect = 0;
-      const levelOneCorrect = { 1: { x: -11, y: 124 }, 2: { x: -11, y: 200 }, 3: { x: -11, y: 276 }, 4: { x: -11, y: 356 }, 5: { x: -11, y: 432 } };
+      const levelOneCorrect = {
+        1: { x: -1, y: 0 },
+        2: { x: -1, y: 99 },
+        3: { x: -1, y: 160 },
+        4: { x: -1, y: 221 },
+        5: { x: -1, y: 282 },
+      };
       const boxOneCalcute = calcuteBoxPosition(
         this.$refs.boxOne.getBoundingClientRect(),
         1
@@ -90,18 +104,16 @@ export default {
       );
       const boxFiveCalcute = calcuteBoxPosition(
         this.$refs.boxFive.getBoundingClientRect(),
-        4
+        5
       );
-      if (boxOneCalcute <= rewardSpace) {
-        boxOneBeingCorrect = 100;
-        alert(100);
-      }
       alert(boxOneCalcute + boxTwoCalcute + boxThreeCalcute + boxFourCalcute + boxFiveCalcute)
       console.log(
         "Boxs",
         boxOneCalcute,
-        boxOneBeingCorrect,
         boxTwoCalcute,
+        boxThreeCalcute,
+        boxFourCalcute,
+        boxFiveCalcute
       );
     },
     onFullScreen() {

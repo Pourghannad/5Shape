@@ -153,7 +153,10 @@
     .game-box {
       width: 320px;
       height: 320px;
-      position: relative;
+      position: fixed;
+      bottom: 0;
+      top: 0;
+      margin: auto;
       box-shadow: 0px 0px 0px 3px #c8102e;
       .item {
         position: absolute;
@@ -223,6 +226,8 @@
       padding: 1em 2em;
       border: 3px solid #371265;
       width: 76%;
+      position: absolute;
+      bottom: 22%;
       cursor: pointer;
     }
   }
