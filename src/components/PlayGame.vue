@@ -106,15 +106,7 @@ export default {
         this.$refs.boxFive.getBoundingClientRect(),
         5
       );
-      alert(boxOneCalcute + boxTwoCalcute + boxThreeCalcute + boxFourCalcute + boxFiveCalcute)
-      console.log(
-        "Boxs",
-        boxOneCalcute,
-        boxTwoCalcute,
-        boxThreeCalcute,
-        boxFourCalcute,
-        boxFiveCalcute
-      );
+      alert(`1: ${boxOneCalcute}  2: ${boxTwoCalcute} 3: ${boxThreeCalcute} 4: ${boxFourCalcute} 5: ${boxFiveCalcute}`)
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
