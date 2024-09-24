@@ -1,7 +1,11 @@
 <script>
+import { onMounted } from 'vue'
 const scale = 1;
 const incentiveDistance = 0;
 const touchMoveOffset = 20;
+// onMounted(() => {
+  
+// })
 export default {
   data() {
     return {
@@ -79,6 +83,14 @@ export default {
           boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
         );
       };
+      // fetch(`/src/assets/levels/1.json`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log('da', data)
+      //   })
+      //   .catch((err) => {
+      //     alert(err);
+      //   });
       const levelOneCorrect = {
         1: { x: -1, y: 0 },
         2: { x: -1, y: 99 },
