@@ -1,11 +1,7 @@
 <script>
-import { onMounted } from 'vue'
 const scale = 1;
 const incentiveDistance = 0;
 const touchMoveOffset = 20;
-// onMounted(() => {
-  
-// })
 export default {
   data() {
     return {
