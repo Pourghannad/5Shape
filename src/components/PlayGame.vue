@@ -90,9 +90,9 @@ export default {
       const levelOneCorrect = {
         1: { x: -1, y: 0 },
         2: { x: -1, y: 37 },
-        3: { x: -1, y: 56 },
-        4: { x: -1, y: 77 },
-        5: { x: -1, y: 98 },
+        3: { x: -1, y: 75 },
+        4: { x: -1, y: 112 },
+        5: { x: -1, y: 150 },
       };
       const boxOneCalcute = calcuteBoxPosition(
         this.$refs.boxOne.getBoundingClientRect(),
