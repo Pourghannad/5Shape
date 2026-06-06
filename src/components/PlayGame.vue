@@ -55,6 +55,13 @@ export default {
     },
     onSubmit() {
       const calcuteBoxPosition = (clientRect, index) => {
+        const levelOneCorrect = {
+          1: { x: -1, y: 0 },
+          2: { x: -1, y: 37 },
+          3: { x: -1, y: 75 },
+          4: { x: -1, y: 112 },
+          5: { x: -1, y: 150 },
+        };
         const windowSpaceToGameX =
           (window.innerWidth -
             this.$refs.gameBox.getBoundingClientRect().width) /
@@ -64,63 +71,51 @@ export default {
             this.$refs.gameBox.getBoundingClientRect().height) /
           2;
         const boxX = Math.floor(
-          clientRect.x - windowSpaceToGameX - incentiveDistance
+          clientRect.x - windowSpaceToGameX - incentiveDistance,
         );
         const boxY = Math.floor(
-          clientRect.y - windowSpaceToGameY - incentiveDistance
+          clientRect.y - windowSpaceToGameY - incentiveDistance,
         );
-        console.log(
-          "index",
-          index,
-          boxX,
-          boxY,
-        );
+        console.log("index", index, boxX, boxY);
         return Math.abs(
-          boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y)
+          boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y),
         );
-      };
-      // fetch(`/src/assets/levels/1.json`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log('da', data)
-      //   })
-      //   .catch((err) => {
-      //     alert(err);
-      //   });
-      const levelOneCorrect = {
-        1: { x: -1, y: 0 },
-        2: { x: -1, y: 37 },
-        3: { x: -1, y: 75 },
-        4: { x: -1, y: 112 },
-        5: { x: -1, y: 150 },
       };
       const boxOneCalcute = calcuteBoxPosition(
         this.$refs.boxOne.getBoundingClientRect(),
-        1
+        1,
       );
       const boxTwoCalcute = calcuteBoxPosition(
         this.$refs.boxTwo.getBoundingClientRect(),
-        2
+        2,
       );
       const boxThreeCalcute = calcuteBoxPosition(
         this.$refs.boxThree.getBoundingClientRect(),
-        3
+        3,
       );
       const boxFourCalcute = calcuteBoxPosition(
         this.$refs.boxFour.getBoundingClientRect(),
-        4
+        4,
       );
       const boxFiveCalcute = calcuteBoxPosition(
         this.$refs.boxFive.getBoundingClientRect(),
-        5
+        5,
       );
-      alert(`1: ${boxOneCalcute}  2: ${boxTwoCalcute} 3: ${boxThreeCalcute} 4: ${boxFourCalcute} 5: ${boxFiveCalcute}`)
+      const boxsSum =
+        boxOneCalcute +
+        boxTwoCalcute +
+        boxThreeCalcute +
+        boxFourCalcute +
+        boxFiveCalcute;
+      alert(
+        boxsSum > 100 ? 'highly unrealistic' : `${100 - boxsSum}%`
+      );
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch((err) => {
           alert(
-            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`,
           );
         });
       }
