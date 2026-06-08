@@ -57,10 +57,10 @@ export default {
       const calcuteBoxPosition = (clientRect, index) => {
         const levelOneCorrect = {
           1: { x: -1, y: 0 },
-          2: { x: -1, y: 37 },
-          3: { x: -1, y: 75 },
-          4: { x: -1, y: 112 },
-          5: { x: -1, y: 150 },
+          2: { x: -1, y: 48 },
+          3: { x: -1, y: 95 },
+          4: { x: -1, y: 143 },
+          5: { x: -1, y: 190 },
         };
         const windowSpaceToGameX =
           (window.innerWidth -
@@ -76,7 +76,7 @@ export default {
         const boxY = Math.floor(
           clientRect.y - windowSpaceToGameY - incentiveDistance,
         );
-        console.log("index", index, boxX, boxY);
+        console.log('say', boxX, boxY)
         return Math.abs(
           boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y),
         );
