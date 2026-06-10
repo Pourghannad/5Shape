@@ -36,6 +36,7 @@ main {
   justify-content: center;
   overflow: hidden;
   height: 100vh;
+  background-color: #090304;
   .use-mobile {
       display: flex;
       align-items: center;

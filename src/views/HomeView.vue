@@ -1,7 +1,7 @@
+<script setup lang="ts">
+import HomePage from "../components/Home/HomePage.vue";
+</script>
+
 <template>
-  <div>
-    <router-link to="/play">Play</router-link>
-  </div>
-
+  <HomePage />
 </template>
-

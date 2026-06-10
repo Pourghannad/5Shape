@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PlayGame from '../components/PlayGame.vue';
+import PlayGame from '../components/PlayGame/PlayGame.vue';
 
 </script>
 
