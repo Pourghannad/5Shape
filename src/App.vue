@@ -1,7 +1,3 @@
-<script setup>
-import PlayGame from "./components/PlayGame.vue";
-</script>
-
 <script scoped>
 export default {
   methods: {
@@ -23,7 +19,7 @@ export default {
 <template>
   <main>
     <div v-if="isMobile()">
-      <PlayGame />
+       <router-view />
     </div>
     <div v-else class="use-mobile">Please use a touch mobile phone!</div>
   </main>
