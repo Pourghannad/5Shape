@@ -84,6 +84,7 @@ export default {
 
       const correct = this.level.correct?.[index];
       if (!correct) return 0;
+      console.log('www', index, boxX, boxY)
       return Math.abs(boxX - correct.x) + Math.abs(boxY - correct.y);
     },
 
@@ -147,35 +148,35 @@ export default {
       <div
         ref="boxOne"
         class="item"
-        :style="{ transform: `translate3D(${level.init?.[0]?.x || 0}px, ${level.init?.[0]?.y || 0}px, 0px)` }"
+        :style="[{ transform: `translate3D(${level.init?.[0]?.x || 0}px, ${level.init?.[0]?.y || 0}px, 0px)` }, level.init?.[0]?.css]"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
       >{{ level.init?.[0]?.content }}</div>
       <div
         ref="boxTwo"
         class="item"
-        :style="{ transform: `translate3D(${level.init?.[1]?.x || 0}px, ${level.init?.[1]?.y || 0}px, 0px)` }"
+        :style="[{ transform: `translate3D(${level.init?.[1]?.x || 0}px, ${level.init?.[1]?.y || 0}px, 0px)` }, level.init?.[1]?.css]"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
       >{{ level.init?.[1]?.content }}</div>
       <div
         ref="boxThree"
         class="item"
-        :style="{ transform: `translate3D(${level.init?.[2]?.x || 0}px, ${level.init?.[2]?.y || 0}px, 0px)` }"
+        :style="[{ transform: `translate3D(${level.init?.[2]?.x || 0}px, ${level.init?.[2]?.y || 0}px, 0px)` }, level.init?.[2]?.css]"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
       >{{ level.init?.[2]?.content }}</div>
       <div
         ref="boxFour"
         class="item"
-        :style="{ transform: `translate3D(${level.init?.[3]?.x || 0}px, ${level.init?.[3]?.y || 0}px, 0px)` }"
+        :style="[{ transform: `translate3D(${level.init?.[3]?.x || 0}px, ${level.init?.[3]?.y || 0}px, 0px)` }, level.init?.[3]?.css]"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
       >{{ level.init?.[3]?.content }}</div>
       <div
         ref="boxFive"
         class="item"
-        :style="{ transform: `translate3D(${level.init?.[4]?.x || 0}px, ${level.init?.[4]?.y || 0}px, 0px)` }"
+        :style="[{ transform: `translate3D(${level.init?.[4]?.x || 0}px, ${level.init?.[4]?.y || 0}px, 0px)` }, level.init?.[4]?.css]"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
       >{{ level.init?.[4]?.content }}</div>

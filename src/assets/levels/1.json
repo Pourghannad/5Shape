@@ -4,31 +4,31 @@
       "x": -40,
       "y": 40,
       "content": "A",
-      "css": "background-color: #ff0;"
+      "css": "background-color: #eee;"
     },
     {
       "x": -10,
       "y": 90,
       "content": "B",
-      "css": "background-color: #f00;"
+      "css": "background-color: #eee;"
     },
     {
       "x": -160,
       "y": 100,
       "content": "C",
-      "css": "background-color: #000;"
+      "css": "background-color: #eee;"
     },
     {
       "x": -200,
       "y": 250,
       "content": "D",
-      "css": "background-color: #000;"
+      "css": "background-color: #eee;"
     },
     {
       "x": -20,
       "y": 0,
       "content": "E",
-      "css": "background-color: #000;"
+      "css": "background-color: #eee;"
     }
   ],
   "correct": [
