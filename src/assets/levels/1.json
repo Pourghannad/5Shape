@@ -1,9 +1,41 @@
 {
-  "positions": {
-    "1": { "x": -1, "y": 0 },
-    "2": { "x": -1, "y": 99 },
-    "3": { "x": -1, "y": 160 },
-    "4": { "x": -1, "y": 221 },
-    "5": { "x": -1, "y": 282 }
-  }
+  "init": [
+    {
+      "x": -40,
+      "y": 40,
+      "content": "A",
+      "css": "background-color: #ff0;"
+    },
+    {
+      "x": -10,
+      "y": 90,
+      "content": "B",
+      "css": "background-color: #f00;"
+    },
+    {
+      "x": -160,
+      "y": 100,
+      "content": "C",
+      "css": "background-color: #000;"
+    },
+    {
+      "x": -200,
+      "y": 250,
+      "content": "D",
+      "css": "background-color: #000;"
+    },
+    {
+      "x": -20,
+      "y": 0,
+      "content": "E",
+      "css": "background-color: #000;"
+    }
+  ],
+  "correct": [
+    { "x": -1, "y": 0 },
+    { "x": -1, "y": 48 },
+    { "x": -1, "y": 95 },
+    { "x": -1, "y": 143 },
+    { "x": -1, "y": 190 }
+  ]
 }

@@ -1,13 +1,23 @@
 <script>
+import { toRaw } from "vue";
+
 const scale = 1;
 const incentiveDistance = 0;
 const touchMoveOffset = 20;
 export default {
   data() {
     return {
-      fullScreen: false,
-      countDown: true,
+      fullScreen: true,
+      countDown: false,
+      level: {},
     };
+  },
+  mounted() {
+    fetch(`/src/assets/levels/${this.$route.query.level || 1}.json`)
+      .then((res) => res.json())
+      .then((res) => {
+        this.level = res;
+      });
   },
   methods: {
     touchmoveItems(event) {
@@ -54,14 +64,8 @@ export default {
       return false;
     },
     onSubmit() {
+      const levelCorrect = toRaw(this.level.correct);
       const calcuteBoxPosition = (clientRect, index) => {
-        const levelOneCorrect = {
-          1: { x: -1, y: 0 },
-          2: { x: -1, y: 48 },
-          3: { x: -1, y: 95 },
-          4: { x: -1, y: 143 },
-          5: { x: -1, y: 190 },
-        };
         const windowSpaceToGameX =
           (window.innerWidth -
             this.$refs.gameBox.getBoundingClientRect().width) /
@@ -71,35 +75,35 @@ export default {
             this.$refs.gameBox.getBoundingClientRect().height) /
           2;
         const boxX = Math.floor(
-          clientRect.x - windowSpaceToGameX - incentiveDistance,
+          clientRect.x - windowSpaceToGameX - incentiveDistance
         );
         const boxY = Math.floor(
-          clientRect.y - windowSpaceToGameY - incentiveDistance,
+          clientRect.y - windowSpaceToGameY - incentiveDistance
         );
-        console.log('say', boxX, boxY)
+        console.log("boxSS", boxX, boxY, levelCorrect[index]); // ??
         return Math.abs(
-          boxX - levelOneCorrect[index].x + (boxY - levelOneCorrect[index].y),
+          boxX - levelCorrect[index]?.x + (boxY - levelCorrect[index].y)
         );
       };
       const boxOneCalcute = calcuteBoxPosition(
         this.$refs.boxOne.getBoundingClientRect(),
-        1,
+        0
       );
       const boxTwoCalcute = calcuteBoxPosition(
         this.$refs.boxTwo.getBoundingClientRect(),
-        2,
+        1
       );
       const boxThreeCalcute = calcuteBoxPosition(
         this.$refs.boxThree.getBoundingClientRect(),
-        3,
+        2
       );
       const boxFourCalcute = calcuteBoxPosition(
         this.$refs.boxFour.getBoundingClientRect(),
-        4,
+        3
       );
       const boxFiveCalcute = calcuteBoxPosition(
         this.$refs.boxFive.getBoundingClientRect(),
-        5,
+        4
       );
       const boxsSum =
         boxOneCalcute +
@@ -107,15 +111,20 @@ export default {
         boxThreeCalcute +
         boxFourCalcute +
         boxFiveCalcute;
-      alert(
-        boxsSum > 100 ? 'highly unrealistic' : `${100 - boxsSum}%`
+      console.log(
+        "oosuumm",
+        boxOneCalcute,
+        boxTwoCalcute,
+        boxTwoCalcute,
+        boxsSum
       );
+      alert(boxsSum > 100 ? "highly unrealistic" : `${100 - boxsSum}%`);
     },
     onFullScreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch((err) => {
           alert(
-            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`,
+            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
           );
         });
       }
@@ -152,44 +161,42 @@ export default {
       <span>4</span>
       <span>5</span>
     </div>
-    <div class="correct-item">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
     <div ref="gameBox" class="game-box">
       <div
         ref="boxOne"
         class="item"
+        :style="{ transform: `translate3D(${level.init?.[0]?.x}px, ${level.init?.[0]?.y}px, 0px)` }"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
-      ></div>
+      >{{ level.init?.[0]?.content }}</div>
       <div
         ref="boxTwo"
         class="item"
+        :style="{ transform: `translate3D(${level.init?.[1]?.x}px, ${level.init?.[1]?.y}px, 0px)` }"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
-      ></div>
+      >{{ level.init?.[1]?.content }}</div>
       <div
         ref="boxThree"
         class="item"
+        :style="{ transform: `translate3D(${level.init?.[2]?.x}px, ${level.init?.[2]?.y}px, 0px)` }"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
-      ></div>
+      >{{ level.init?.[2]?.content }}</div>
       <div
         ref="boxFour"
         class="item"
+        :style="{ transform: `translate3D(${level.init?.[3]?.x}px, ${level.init?.[3]?.y}px, 0px)` }"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
-      ></div>
+      >{{ level.init?.[3]?.content }}</div>
       <div
         ref="boxFive"
         class="item"
+        :style="{ transform: `translate3D(${level.init?.[4]?.x}px, ${level.init?.[4]?.y}px, 0px)` }"
         @touchmove="touchmoveItems"
         @touchend="touchEnd"
-      ></div>
+      >{{ level.init?.[4]?.content }}</div>
     </div>
     <button class="submit" @click="onSubmit">Submit</button>
   </section>

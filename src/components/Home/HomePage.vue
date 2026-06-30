@@ -40,7 +40,7 @@
       />
     </svg>
 
-    <router-link to="/play">Play</router-link>
+    <router-link to="/play?level=1">Play</router-link>
   </div>
 </template>
 
