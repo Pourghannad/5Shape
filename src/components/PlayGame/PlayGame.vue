@@ -84,7 +84,6 @@ export default {
 
       const correct = this.level.correct?.[index];
       if (!correct) return 0;
-
       return Math.abs(boxX - correct.x) + Math.abs(boxY - correct.y);
     },
 
@@ -99,12 +98,8 @@ export default {
         const rect = el.getBoundingClientRect();
         const distance = this.calcuteBoxPosition(rect, index);
         totalScore += distance;
-        console.log(`Box ${index + 1} distance:`, distance);
       });
-
-      console.log('Total score (sum of distances):', totalScore);
-      const result = totalScore > 100 ? 'highly unrealistic' : `${100 - totalScore}%`;
-      alert(result);
+      alert(`score ${100 - totalScore}`);
     },
 
     onFullScreen() {
