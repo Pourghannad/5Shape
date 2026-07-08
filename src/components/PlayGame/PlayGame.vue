@@ -1,5 +1,4 @@
 <script>
-
 const SCALE = 1;
 const INCENTIVE_DISTANCE = 0;
 const TOUCH_MOVE_OFFSET = 20;
@@ -10,7 +9,9 @@ export default {
     return {
       fullScreen: true,
       countDown: false,
+      score: 0,
       level: {},
+      boxPositions: [],
     };
   },
   mounted() {
@@ -19,11 +20,12 @@ export default {
       .then(res => res.json())
       .then(data => {
         this.level = data;
+        this.boxPositions = data.init.map(item => ({ x: item.x || 0, y: item.y || 0 }));
       })
       .catch(err => console.error('Failed to load level:', err));
   },
   methods: {
-    touchmoveItems(event) {
+    touchmoveItems(event, index) {
       event.preventDefault();
       const target = event.target;
       const parent = target.offsetParent;
@@ -60,6 +62,8 @@ export default {
         offsetY < parentHeight - targetHeight + TOUCH_MOVE_OFFSET;
 
       if (inBounds) {
+        this.boxPositions[index].x = touchX;
+        this.boxPositions[index].y = touchY;
         target.style.transform = `translate3D(${touchX}px, ${touchY}px, 0px) scale3D(${SCALE}, ${SCALE}, 1)`;
       }
       return false;
@@ -67,11 +71,9 @@ export default {
 
     touchEnd(event) {
       event.preventDefault();
-      const target = event.target;
-      const currentTransform = target.style.transform;
-      const translation = currentTransform.split(' scale3d')[0] || currentTransform;
-      target.style.transform = `${translation} scale3D(1, 1, 1)`;
-      return false;
+      setTimeout(() => {
+        this.onSubmit();
+      }, 100);
     },
 
     calcuteBoxPosition(clientRect, index) {
@@ -84,12 +86,10 @@ export default {
 
       const correct = this.level.correct?.[index];
       if (!correct) return 0;
-      console.log('www', index, boxX, boxY)
       return Math.abs(boxX - correct.x) + Math.abs(boxY - correct.y);
     },
 
     onSubmit() {
-      // List of box refs in order
       const boxRefs = ['boxOne', 'boxTwo', 'boxThree', 'boxFour', 'boxFive'];
       let totalScore = 0;
 
@@ -100,7 +100,7 @@ export default {
         const distance = this.calcuteBoxPosition(rect, index);
         totalScore += distance;
       });
-      alert(`score ${100 - totalScore}`);
+      this.score = 100 - totalScore;
     },
 
     onFullScreen() {
@@ -121,6 +121,9 @@ export default {
 </script>
 
 <template>
+  <div class="intro">
+    <p>{{ score }}Tap, hold, and slide each item to reposition it, and refine the set so everything aligns with a single, unified resolve.</p>
+  </div>
   <div v-if="!fullScreen">
     <button class="full-screen" @click="onFullScreen">
       <svg
@@ -148,40 +151,54 @@ export default {
       <div
         ref="boxOne"
         class="item"
-        :style="[{ transform: `translate3D(${level.init?.[0]?.x || 0}px, ${level.init?.[0]?.y || 0}px, 0px)` }, level.init?.[0]?.css]"
-        @touchmove="touchmoveItems"
+        :style="[
+          { transform: `translate3D(${boxPositions[0]?.x || 0}px, ${boxPositions[0]?.y || 0}px, 0px)` },
+          level.init?.[0]?.css
+        ]"
+        @touchmove="touchmoveItems($event, 0)"
         @touchend="touchEnd"
       >{{ level.init?.[0]?.content }}</div>
       <div
         ref="boxTwo"
         class="item"
-        :style="[{ transform: `translate3D(${level.init?.[1]?.x || 0}px, ${level.init?.[1]?.y || 0}px, 0px)` }, level.init?.[1]?.css]"
-        @touchmove="touchmoveItems"
+        :style="[
+          { transform: `translate3D(${boxPositions[1]?.x || 0}px, ${boxPositions[1]?.y || 0}px, 0px)` },
+          level.init?.[1]?.css
+        ]"
+        @touchmove="touchmoveItems($event, 1)"
         @touchend="touchEnd"
       >{{ level.init?.[1]?.content }}</div>
       <div
         ref="boxThree"
         class="item"
-        :style="[{ transform: `translate3D(${level.init?.[2]?.x || 0}px, ${level.init?.[2]?.y || 0}px, 0px)` }, level.init?.[2]?.css]"
-        @touchmove="touchmoveItems"
+        :style="[
+          { transform: `translate3D(${boxPositions[2]?.x || 0}px, ${boxPositions[2]?.y || 0}px, 0px)` },
+          level.init?.[2]?.css
+        ]"
+        @touchmove="touchmoveItems($event, 2)"
         @touchend="touchEnd"
       >{{ level.init?.[2]?.content }}</div>
       <div
         ref="boxFour"
         class="item"
-        :style="[{ transform: `translate3D(${level.init?.[3]?.x || 0}px, ${level.init?.[3]?.y || 0}px, 0px)` }, level.init?.[3]?.css]"
-        @touchmove="touchmoveItems"
+        :style="[
+          { transform: `translate3D(${boxPositions[3]?.x || 0}px, ${boxPositions[3]?.y || 0}px, 0px)` },
+          level.init?.[3]?.css
+        ]"
+        @touchmove="touchmoveItems($event, 3)"
         @touchend="touchEnd"
       >{{ level.init?.[3]?.content }}</div>
       <div
         ref="boxFive"
         class="item"
-        :style="[{ transform: `translate3D(${level.init?.[4]?.x || 0}px, ${level.init?.[4]?.y || 0}px, 0px)` }, level.init?.[4]?.css]"
-        @touchmove="touchmoveItems"
+        :style="[
+          { transform: `translate3D(${boxPositions[4]?.x || 0}px, ${boxPositions[4]?.y || 0}px, 0px)` },
+          level.init?.[4]?.css
+        ]"
+        @touchmove="touchmoveItems($event, 4)"
         @touchend="touchEnd"
       >{{ level.init?.[4]?.content }}</div>
     </div>
-    <button class="submit" @click="onSubmit">Submit</button>
   </section>
 </template>
 

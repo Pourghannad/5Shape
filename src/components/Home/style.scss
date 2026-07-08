@@ -4,6 +4,12 @@
     height: 100dvh;
     justify-content: center;
     align-items: center;
+    > a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     a {
         text-decoration: none;
         color: #7A4CDF;
