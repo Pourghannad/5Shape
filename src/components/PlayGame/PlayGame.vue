@@ -4,7 +4,7 @@ const INCENTIVE_DISTANCE = 0;
 const TOUCH_MOVE_OFFSET = 20;
 
 export default {
-  name: 'GameLevel',
+  name: "GameLevel",
   data() {
     return {
       fullScreen: true,
@@ -14,17 +14,29 @@ export default {
       boxPositions: [],
     };
   },
+  watch: {
+    "$route.query.level": {
+      handler() {
+        this.getLevel(this.$route.query.level || 1);
+      },
+    },
+  },
   mounted() {
-    const levelId = this.$route.query.level || 1;
-    fetch(`/src/assets/levels/${levelId}.json`)
-      .then(res => res.json())
-      .then(data => {
-        this.level = data;
-        this.boxPositions = data.init.map(item => ({ x: item.x || 0, y: item.y || 0 }));
-      })
-      .catch(err => console.error('Failed to load level:', err));
+    this.getLevel(this.$route.query.level || 1);
   },
   methods: {
+    getLevel(level) {
+      fetch(`/src/assets/levels/${level}.json`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.level = data;
+          this.boxPositions = data.init.map((item) => ({
+            x: item.x || 0,
+            y: item.y || 0,
+          }));
+        })
+        .catch((err) => console.error("Failed to load level:", err));
+    },
     touchmoveItems(event, index) {
       event.preventDefault();
       const target = event.target;
@@ -42,13 +54,9 @@ export default {
         target.offsetHeight / 2;
 
       const offsetX =
-        event.touches[0].pageX -
-        parent.offsetLeft -
-        target.offsetWidth / 2;
+        event.touches[0].pageX - parent.offsetLeft - target.offsetWidth / 2;
       const offsetY =
-        event.touches[0].pageY -
-        parent.offsetTop -
-        target.offsetHeight / 2;
+        event.touches[0].pageY - parent.offsetTop - target.offsetHeight / 2;
 
       const parentWidth = parent.offsetWidth;
       const parentHeight = parent.offsetHeight;
@@ -81,8 +89,12 @@ export default {
       const windowSpaceToGameX = (window.innerWidth - gameBoxRect.width) / 2;
       const windowSpaceToGameY = (window.innerHeight - gameBoxRect.height) / 2;
 
-      const boxX = Math.floor(clientRect.x - windowSpaceToGameX - INCENTIVE_DISTANCE);
-      const boxY = Math.floor(clientRect.y - windowSpaceToGameY - INCENTIVE_DISTANCE);
+      const boxX = Math.floor(
+        clientRect.x - windowSpaceToGameX - INCENTIVE_DISTANCE
+      );
+      const boxY = Math.floor(
+        clientRect.y - windowSpaceToGameY - INCENTIVE_DISTANCE
+      );
 
       const correct = this.level.correct?.[index];
       if (!correct) return 0;
@@ -90,7 +102,7 @@ export default {
     },
 
     onSubmit() {
-      const boxRefs = ['boxOne', 'boxTwo', 'boxThree', 'boxFour', 'boxFive'];
+      const boxRefs = ["boxOne", "boxTwo", "boxThree", "boxFour", "boxFive"];
       let totalScore = 0;
 
       boxRefs.forEach((ref, index) => {
@@ -105,7 +117,7 @@ export default {
 
     onFullScreen() {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
+        document.documentElement.requestFullscreen().catch((err) => {
           alert(
             `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
           );
@@ -116,13 +128,43 @@ export default {
         this.countDown = false;
       }, 1500);
     },
+    calcuteBg(score) {
+      let result = "#7a4cdf";
+      if (score < -1000) {
+        result = "#810000"
+      } else if (score > -1000 && score < -500) {
+        result = "#813900"
+      } else if (score > -500 && score < -150) {
+        result = "#816f00"
+      } else if (score > -150 && score < 0) {
+        result = "#778100"
+      } else if (score >= 0 && score < 65) {
+        result = "#3e8100"
+      } else if (score > 65) {
+        result = "#81d82f"
+      }
+      return result;
+    },
   },
 };
 </script>
 
 <template>
-  <div class="intro">
-    <p>{{ score }}Tap, hold, and slide each item to reposition it, and refine the set so everything aligns with a single, unified resolve.</p>
+  <div
+    class="intro"
+    :style="{
+      background: score !== 0 ? calcuteBg(score) : undefined,
+      color: score !== 0 ? '#fff' : undefined,
+      textAlign: score === 0 ? 'left' : 'center'
+    }"
+  >
+    <p>
+      {{
+        score === 0
+          ? "Tap, hold, and slide each item to reposition it, and refine the set so everything aligns with a single, unified resolve."
+          : `${score}/100`
+      }}
+    </p>
   </div>
   <div v-if="!fullScreen">
     <button class="full-screen" @click="onFullScreen">
@@ -152,52 +194,82 @@ export default {
         ref="boxOne"
         class="item"
         :style="[
-          { transform: `translate3D(${boxPositions[0]?.x || 0}px, ${boxPositions[0]?.y || 0}px, 0px)` },
-          level.init?.[0]?.css
+          {
+            transform: `translate3D(${boxPositions[0]?.x || 0}px, ${
+              boxPositions[0]?.y || 0
+            }px, 0px)`,
+          },
+          level.init?.[0]?.css,
         ]"
         @touchmove="touchmoveItems($event, 0)"
         @touchend="touchEnd"
-      >{{ level.init?.[0]?.content }}</div>
+      >
+        {{ level.init?.[0]?.content }}
+      </div>
       <div
         ref="boxTwo"
         class="item"
         :style="[
-          { transform: `translate3D(${boxPositions[1]?.x || 0}px, ${boxPositions[1]?.y || 0}px, 0px)` },
-          level.init?.[1]?.css
+          {
+            transform: `translate3D(${boxPositions[1]?.x || 0}px, ${
+              boxPositions[1]?.y || 0
+            }px, 0px)`,
+          },
+          level.init?.[1]?.css,
         ]"
         @touchmove="touchmoveItems($event, 1)"
         @touchend="touchEnd"
-      >{{ level.init?.[1]?.content }}</div>
+      >
+        {{ level.init?.[1]?.content }}
+      </div>
       <div
         ref="boxThree"
         class="item"
         :style="[
-          { transform: `translate3D(${boxPositions[2]?.x || 0}px, ${boxPositions[2]?.y || 0}px, 0px)` },
-          level.init?.[2]?.css
+          {
+            transform: `translate3D(${boxPositions[2]?.x || 0}px, ${
+              boxPositions[2]?.y || 0
+            }px, 0px)`,
+          },
+          level.init?.[2]?.css,
         ]"
         @touchmove="touchmoveItems($event, 2)"
         @touchend="touchEnd"
-      >{{ level.init?.[2]?.content }}</div>
+      >
+        {{ level.init?.[2]?.content }}
+      </div>
       <div
         ref="boxFour"
         class="item"
         :style="[
-          { transform: `translate3D(${boxPositions[3]?.x || 0}px, ${boxPositions[3]?.y || 0}px, 0px)` },
-          level.init?.[3]?.css
+          {
+            transform: `translate3D(${boxPositions[3]?.x || 0}px, ${
+              boxPositions[3]?.y || 0
+            }px, 0px)`,
+          },
+          level.init?.[3]?.css,
         ]"
         @touchmove="touchmoveItems($event, 3)"
         @touchend="touchEnd"
-      >{{ level.init?.[3]?.content }}</div>
+      >
+        {{ level.init?.[3]?.content }}
+      </div>
       <div
         ref="boxFive"
         class="item"
         :style="[
-          { transform: `translate3D(${boxPositions[4]?.x || 0}px, ${boxPositions[4]?.y || 0}px, 0px)` },
-          level.init?.[4]?.css
+          {
+            transform: `translate3D(${boxPositions[4]?.x || 0}px, ${
+              boxPositions[4]?.y || 0
+            }px, 0px)`,
+          },
+          level.init?.[4]?.css,
         ]"
         @touchmove="touchmoveItems($event, 4)"
         @touchend="touchEnd"
-      >{{ level.init?.[4]?.content }}</div>
+      >
+        {{ level.init?.[4]?.content }}
+      </div>
     </div>
   </section>
 </template>
