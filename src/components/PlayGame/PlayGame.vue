@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getLevel(level) {
-      fetch(`/src/assets/levels/${level}.json`)
+      fetch(`./levels/${level}.json`)
         .then((res) => res.json())
         .then((data) => {
           this.level = data;
