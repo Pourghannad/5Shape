@@ -7,8 +7,8 @@ export default {
   name: "GameLevel",
   data() {
     return {
-      fullScreen: true,
-      countDown: false,
+      fullScreen: false,
+      countDown: true,
       score: 0,
       level: {},
       boxPositions: [],
@@ -131,17 +131,17 @@ export default {
     calcuteBg(score) {
       let result = "#7a4cdf";
       if (score < -1000) {
-        result = "#810000"
+        result = "#810000";
       } else if (score > -1000 && score < -500) {
-        result = "#813900"
+        result = "#813900";
       } else if (score > -500 && score < -150) {
-        result = "#816f00"
+        result = "#816f00";
       } else if (score > -150 && score < 0) {
-        result = "#778100"
+        result = "#778100";
       } else if (score >= 0 && score < 65) {
-        result = "#3e8100"
+        result = "#3e8100";
       } else if (score > 65) {
-        result = "#81d82f"
+        result = "#81d82f";
       }
       return result;
     },
@@ -151,11 +151,12 @@ export default {
 
 <template>
   <div
+    v-if="fullScreen"
     class="intro"
     :style="{
       background: score !== 0 ? calcuteBg(score) : undefined,
       color: score !== 0 ? '#fff' : undefined,
-      textAlign: score === 0 ? 'left' : 'center'
+      textAlign: score === 0 ? 'left' : 'center',
     }"
   >
     <p>
