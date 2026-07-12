@@ -98,7 +98,6 @@ export default {
 
       const correct = this.level.correct?.[index];
       if (!correct) return 0;
-      console.log('www', index, boxX, boxY)
       return Math.abs(boxX - correct.x) + Math.abs(boxY - correct.y);
     },
 
