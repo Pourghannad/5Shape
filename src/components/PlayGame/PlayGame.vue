@@ -7,8 +7,8 @@ export default {
   name: "GameLevel",
   data() {
     return {
-      fullScreen: false,
-      countDown: true,
+      fullScreen: true,
+      countDown: false,
       score: 0,
       level: {},
       boxPositions: [],
