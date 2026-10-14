@@ -48,7 +48,10 @@ export default {
       this.draggingIndex = null;
       this.hasNextLevel = true;
       fetch(`./levels/${level}.json`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error(`Level ${level} not found`);
+          return res.json();
+        })
         .then((data) => {
           this.level = data;
           this.boxPositions = data.init.map((item) => ({
@@ -345,7 +348,7 @@ export default {
       </div>
       <router-link
         v-if="showNextLevel"
-        :to="`/play?level=${nextLevel}`"
+        :to="{ path: '/play', query: { level: nextLevel } }"
         class="next-level"
       >
         Next Level →
