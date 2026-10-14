@@ -12,7 +12,21 @@ export default {
       score: 0,
       level: {},
       boxPositions: [],
+      draggingIndex: null,
+      hasNextLevel: true,
     };
+  },
+  computed: {
+    currentLevel() {
+      const parsed = parseInt(this.$route.query.level || "1", 10);
+      return Number.isNaN(parsed) || parsed < 1 ? 1 : parsed;
+    },
+    nextLevel() {
+      return this.currentLevel + 1;
+    },
+    showNextLevel() {
+      return this.score > 70 && this.hasNextLevel;
+    },
   },
   watch: {
     "$route.query.level": {
@@ -24,8 +38,15 @@ export default {
   mounted() {
     this.getLevel(this.$route.query.level || 1);
   },
+  beforeUnmount() {
+    window.removeEventListener("mousemove", this.onWindowMouseMove);
+    window.removeEventListener("mouseup", this.onWindowMouseUp);
+  },
   methods: {
     getLevel(level) {
+      this.score = 0;
+      this.draggingIndex = null;
+      this.hasNextLevel = true;
       fetch(`./levels/${level}.json`)
         .then((res) => res.json())
         .then((data) => {
@@ -34,29 +55,41 @@ export default {
             x: item.x || 0,
             y: item.y || 0,
           }));
+          this.checkNextLevel(level);
         })
         .catch((err) => console.error("Failed to load level:", err));
     },
-    touchmoveItems(event, index) {
-      event.preventDefault();
-      const target = event.target;
+    checkNextLevel(level) {
+      const current = parseInt(level, 10) || 1;
+      fetch(`./levels/${current + 1}.json`, { method: "HEAD" })
+        .then((res) => {
+          this.hasNextLevel = res.ok;
+        })
+        .catch(() => {
+          // If HEAD isn't supported, assume the next level exists
+          // and let getLevel handle a real 404 on navigation.
+          this.hasNextLevel = true;
+        });
+    },
+    moveBox(target, point, index) {
       const parent = target.offsetParent;
+      if (!parent) return;
 
       const touchX =
-        event.touches[0].clientX -
+        point.clientX -
         target.offsetLeft -
         parent.offsetLeft -
         target.offsetWidth / 2;
       const touchY =
-        event.touches[0].clientY -
+        point.clientY -
         target.offsetTop -
         parent.offsetTop -
         target.offsetHeight / 2;
 
       const offsetX =
-        event.touches[0].pageX - parent.offsetLeft - target.offsetWidth / 2;
+        point.pageX - parent.offsetLeft - target.offsetWidth / 2;
       const offsetY =
-        event.touches[0].pageY - parent.offsetTop - target.offsetHeight / 2;
+        point.pageY - parent.offsetTop - target.offsetHeight / 2;
 
       const parentWidth = parent.offsetWidth;
       const parentHeight = parent.offsetHeight;
@@ -76,12 +109,46 @@ export default {
       }
       return false;
     },
+    touchmoveItems(event, index) {
+      event.preventDefault();
+      const target = event.currentTarget || event.target;
+      const point = event.touches[0];
+      if (!point) return false;
+      return this.moveBox(target, point, index);
+    },
 
     touchEnd(event) {
-      event.preventDefault();
+      if (event) event.preventDefault();
       setTimeout(() => {
         this.onSubmit();
       }, 100);
+    },
+
+    mouseDown(event, index) {
+      event.preventDefault();
+      this.draggingIndex = index;
+      window.addEventListener("mousemove", this.onWindowMouseMove);
+      window.addEventListener("mouseup", this.onWindowMouseUp, { once: true });
+    },
+
+    onWindowMouseMove(event) {
+      if (this.draggingIndex === null || this.draggingIndex === undefined)
+        return;
+      // Only drag while the primary button is held.
+      if (event.buttons !== undefined && event.buttons !== 1) return;
+      const boxRefs = ["boxOne", "boxTwo", "boxThree", "boxFour", "boxFive"];
+      const target = this.$refs[boxRefs[this.draggingIndex]];
+      if (!target) return;
+      event.preventDefault();
+      this.moveBox(target, event, this.draggingIndex);
+    },
+
+    onWindowMouseUp(event) {
+      if (this.draggingIndex === null || this.draggingIndex === undefined)
+        return;
+      this.draggingIndex = null;
+      window.removeEventListener("mousemove", this.onWindowMouseMove);
+      this.touchEnd(event);
     },
 
     calcuteBoxPosition(clientRect, index) {
@@ -162,7 +229,7 @@ export default {
     <p>
       {{
         score === 0
-          ? "Tap, hold, and slide each item to reposition it, and refine the set so everything aligns with a single, unified resolve."
+          ? "Click / tap, hold, and drag each item to reposition it, and refine the set so everything aligns with a single, unified resolve."
           : `${score}/100`
       }}
     </p>
@@ -204,6 +271,7 @@ export default {
         ]"
         @touchmove="touchmoveItems($event, 0)"
         @touchend="touchEnd"
+        @mousedown="mouseDown($event, 0)"
       >
         {{ level.init?.[0]?.content }}
       </div>
@@ -220,6 +288,7 @@ export default {
         ]"
         @touchmove="touchmoveItems($event, 1)"
         @touchend="touchEnd"
+        @mousedown="mouseDown($event, 1)"
       >
         {{ level.init?.[1]?.content }}
       </div>
@@ -236,6 +305,7 @@ export default {
         ]"
         @touchmove="touchmoveItems($event, 2)"
         @touchend="touchEnd"
+        @mousedown="mouseDown($event, 2)"
       >
         {{ level.init?.[2]?.content }}
       </div>
@@ -252,6 +322,7 @@ export default {
         ]"
         @touchmove="touchmoveItems($event, 3)"
         @touchend="touchEnd"
+        @mousedown="mouseDown($event, 3)"
       >
         {{ level.init?.[3]?.content }}
       </div>
@@ -268,9 +339,17 @@ export default {
         ]"
         @touchmove="touchmoveItems($event, 4)"
         @touchend="touchEnd"
+        @mousedown="mouseDown($event, 4)"
       >
         {{ level.init?.[4]?.content }}
       </div>
+      <router-link
+        v-if="showNextLevel"
+        :to="`/play?level=${nextLevel}`"
+        class="next-level"
+      >
+        Next Level →
+      </router-link>
     </div>
   </section>
 </template>

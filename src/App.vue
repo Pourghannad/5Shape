@@ -1,27 +1,10 @@
 <script scoped>
-export default {
-  methods: {
-    isMobile() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-};
+export default {};
 </script>
 
 <template>
   <main>
-    <div v-if="isMobile()">
-       <router-view />
-    </div>
-    <div v-else class="use-mobile">Please use a touch mobile phone!</div>
+    <router-view />
   </main>
 </template>
 
@@ -37,11 +20,5 @@ main {
   overflow: hidden;
   height: 100vh;
   background-color: #090304;
-  .use-mobile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-  }
 }
 </style>

@@ -102,6 +102,20 @@ section {
     top: 0px;
     margin: auto;
     box-shadow: 0px 0px 0px 3px #ed6d6d, 0px 0px 0px 8px #df7ecd, 0px 0px 0px 12px #a64cdf, 0px 0px 0px 16px #7a4cdf;
+    .next-level {
+      position: absolute;
+      top: calc(100% + 24px);
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #fff;
+      background-color: #3e8100;
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: 1px;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
     .item {
       position: absolute;
       top: 0px;
@@ -113,8 +127,14 @@ section {
       transition-property: transform;
       transition-timing-function: linear;
       transition-duration: 50ms;
-      touch-action: auto;
+      touch-action: none;
       -webkit-overflow-scrolling: touch;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: grab;
+      &:active {
+        cursor: grabbing;
+      }
       transform: translate3D(0px, 0px, 0px);
       color: #727272;
       font-size: 20px;
