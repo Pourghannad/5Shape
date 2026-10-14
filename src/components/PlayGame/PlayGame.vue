@@ -25,7 +25,7 @@ export default {
       return this.currentLevel + 1;
     },
     showNextLevel() {
-      return this.score > 70 && this.hasNextLevel;
+      return this.score > 50 && this.hasNextLevel;
     },
   },
   watch: {
