@@ -1,0 +1,41 @@
+{
+  "init": [
+    {
+      "x": -247,
+      "y": 231,
+      "content": "1",
+      "css": "background-color: #e85124;color: #fff;"
+    },
+    {
+      "x": -189,
+      "y": 231,
+      "content": "2",
+      "css": "background-color: #efb40d;color: #fff;"
+    },
+    {
+      "x": -131,
+      "y": 231,
+      "content": "3",
+      "css": "background-color: #7eb607;color: #fff;"
+    },
+    {
+      "x": -73,
+      "y": 231,
+      "content": "4",
+      "css": "background-color: #44a2ea;color: #fff;"
+    },
+    {
+      "x": -15,
+      "y": 231,
+      "content": "5",
+      "css": "background-color: #d6336c;color: #fff;"
+    }
+  ],
+  "correct": [
+    { "x": 15, "y": 131 },
+    { "x": 73, "y": 131 },
+    { "x": 131, "y": 131 },
+    { "x": 189, "y": 131 },
+    { "x": 247, "y": 131 }
+  ]
+}
